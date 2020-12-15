@@ -1,21 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/12/13/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>Linux时间同步</title>
+    <url>/2020/06/13/Linux%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文所述的Linux时间同步方法用于CDH安装时准备工作。以下是服务器的一些基本信息:</p>
+<ol>
+<li>环境：自建虚拟机</li>
+<li>系统：CentOS 7</li>
+<li>NTP服务器：阿里云（ntp.aliyun.com）</li>
+<li>同步频率：开机自动同步</li>
+</ol>
+</blockquote>
+<a id="more"></a>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h1 id="NTP安装与配置"><a href="#NTP安装与配置" class="headerlink" title="NTP安装与配置"></a>NTP安装与配置</h1><h2 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. 下载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install ntp</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h2 id="2-修改配置文件-etc-ntp-conf）"><a href="#2-修改配置文件-etc-ntp-conf）" class="headerlink" title="2. 修改配置文件(/etc/ntp.conf）"></a>2. 修改配置文件(/etc/ntp.conf）</h2><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#注释掉一下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">0.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">1.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">2.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">3.centos.pool.ntp.org iburst</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#添加以下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h2 id="3-开启服务"><a href="#3-开启服务" class="headerlink" title="3. 开启服务"></a>3. 开启服务</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start ntpd</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h2 id="4-设置NTP服务开机自启"><a href="#4-设置NTP服务开机自启" class="headerlink" title="4. 设置NTP服务开机自启"></a>4. 设置NTP服务开机自启</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> ntpd</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-将系统时钟同步到NTP服务器"><a href="#5-将系统时钟同步到NTP服务器" class="headerlink" title="5. 将系统时钟同步到NTP服务器"></a>5. 将系统时钟同步到NTP服务器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ntpdate -u ntp.aliyun.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-将硬件时钟与系统时钟同步"><a href="#6-将硬件时钟与系统时钟同步" class="headerlink" title="6. 将硬件时钟与系统时钟同步"></a>6. 将硬件时钟与系统时钟同步</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：</p>
+<ol>
+<li>本次同步的频率为开机自启，也可以设置Linux自带的crontab定时器定时执行。具体根据自身需求而定。</li>
+<li>由于本次时间同步环境为自建虚拟机，时区在新建时就已经设置了；如果是线上服务器，可能会自动设置。具体后面会进一步补充。</li>
+<li>更换时区命令：ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</li>
+<li>查看当前时区命令： ll /etc/localtime</li>
+</ol>
+</blockquote>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux更换镜像</title>
+    <url>/2020/06/13/Linux%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>由于新建虚拟机时，使用系统自带的CentOS镜像在使用yum命令下载各种软件的速度不太理想，因此本文用于记录更换原始镜像为国内镜像的步骤。以下是服务器信息：</p>
+<ol>
+<li>环境：自建虚拟机</li>
+<li>系统：CentOS 7</li>
+<li>镜像：阿里云</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><h2 id="安装wget-curl"><a href="#安装wget-curl" class="headerlink" title="安装wget/curl"></a>安装wget/curl</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">yum -y install curl</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="1-备份原本的镜像"><a href="#1-备份原本的镜像" class="headerlink" title="1. 备份原本的镜像"></a>1. 备份原本的镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-下载镜像并写入指定文件中"><a href="#2-下载镜像并写入指定文件中" class="headerlink" title="2. 下载镜像并写入指定文件中"></a>2. 下载镜像并写入指定文件中</h2><ul>
+<li>以下两种方式均可下载目标镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#使用Wget命令</span></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用curl命令</span></span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：-o后面路径+指定文件名，作用是将目标镜像中的内容写到指定目录的指定文件中</p>
+</blockquote>
+<h2 id="3-更新镜像源"><a href="#3-更新镜像源" class="headerlink" title="3. 更新镜像源"></a>3. 更新镜像源</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#清除缓存</span></span><br><span class="line">yum clean all</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成缓存</span></span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：网上有一篇博客说要将跟换后的CentOS-Base.repo中的所有http开头的更改为https，作用暂时未知（可能网络安全），后续了解后，会进一步补充。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初识Linux</title>
+    <url>/2020/06/12/%E5%88%9D%E8%AF%86Linux/</url>
+    <content><![CDATA[<h2 id="操作系统发展史"><a href="#操作系统发展史" class="headerlink" title="操作系统发展史"></a>操作系统发展史</h2><p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8F%91%E5%B1%95%E5%8F%B2.png?raw=true"></p>
+<a id="more"></a>
+
+<h2 id="计算机"><a href="#计算机" class="headerlink" title="计算机"></a>计算机</h2><h3 id="按照粗粒度划分可以分为三大部分："><a href="#按照粗粒度划分可以分为三大部分：" class="headerlink" title="按照粗粒度划分可以分为三大部分："></a>按照粗粒度划分可以分为三大部分：</h3><h4 id="1-输入部分"><a href="#1-输入部分" class="headerlink" title="1. 输入部分"></a>1. 输入部分</h4><ul>
+<li>键盘</li>
+<li>鼠标</li>
+<li>手写板</li>
+<li>触控屏</li>
+</ul>
+<h4 id="2-输出部分"><a href="#2-输出部分" class="headerlink" title="2. 输出部分"></a>2. 输出部分</h4><ul>
+<li>显示器</li>
+<li>打印机</li>
+</ul>
+<h4 id="3-主机部分"><a href="#3-主机部分" class="headerlink" title="3. 主机部分"></a>3. 主机部分</h4><ul>
+<li>主板</li>
+<li>主存储器</li>
+<li>CPU（逻辑计算单元、控制单元）</li>
+</ul>
+<h3 id="按照细粒度划分可以分为五大单元："><a href="#按照细粒度划分可以分为五大单元：" class="headerlink" title="按照细粒度划分可以分为五大单元："></a>按照细粒度划分可以分为五大单元：</h3><h4 id="1-输入设备"><a href="#1-输入设备" class="headerlink" title="1. 输入设备"></a>1. 输入设备</h4><h4 id="2-输出设备"><a href="#2-输出设备" class="headerlink" title="2. 输出设备"></a>2. 输出设备</h4><h4 id="3-运算器"><a href="#3-运算器" class="headerlink" title="3. 运算器"></a>3. 运算器</h4><ul>
+<li>逻辑计算单元<h4 id="4-控制器"><a href="#4-控制器" class="headerlink" title="4. 控制器"></a>4. 控制器</h4></li>
+<li>控制单元<h4 id="5-存储器"><a href="#5-存储器" class="headerlink" title="5. 存储器"></a>5. 存储器</h4></li>
+</ul>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="1-含义："><a href="#1-含义：" class="headerlink" title="1. 含义："></a>1. 含义：</h3><ul>
+<li>操作系统（Operating System，简称OS）是管理和控制计算机硬件与软件资源的计算机程序，是直接运行  在“裸机”上的最基本的系统软件，任何其他软件都必须在操作系统的支持下才能运行。</li>
+</ul>
+<h3 id="2-存在的意义："><a href="#2-存在的意义：" class="headerlink" title="2. 存在的意义："></a>2. 存在的意义：</h3><ul>
+<li>计算机主机是由一堆硬件所组成的，为了有效率的控制这些硬件资源，操作系统就诞生了。</li>
+</ul>
+<h3 id="3-作用："><a href="#3-作用：" class="headerlink" title="3. 作用："></a>3. 作用：</h3><ul>
+<li>有效率的控制硬件资源的分配</li>
+<li>提供计算机运作所需要的功能（网络）</li>
+<li>提供程序设计师更容易开发软件的环境</li>
+</ul>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.png?raw=true"></p>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="1-含义：-1"><a href="#1-含义：-1" class="headerlink" title="1. 含义："></a>1. 含义：</h3><ul>
+<li>Linux 内核最初只是由芬兰人林纳斯·托瓦兹（Linus Torvalds）在赫尔辛基大学上学时出于个人爱好而编写的。</li>
+<li>Linux 是一套免费使用和自由传播的类 Unix 操作系统，是一个基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多 CPU 的操作系统。</li>
+<li>Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它支持 32 位和 64 位硬件。Linux 继承了 Unix 以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。</li>
+</ul>
+<h3 id="2-Linux发行版"><a href="#2-Linux发行版" class="headerlink" title="2. Linux发行版"></a>2. Linux发行版</h3><p>Linux 的发行版说简单点就是将<strong>Linux内核</strong>与<strong>应用软件</strong>做一个打包。​</p>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/Linux%E5%90%84%E7%89%88%E6%9C%AC.png?raw=true"></p>
+<h3 id="3-Linux特点"><a href="#3-Linux特点" class="headerlink" title="3. Linux特点"></a>3. Linux特点</h3><h4 id="1-核心思想"><a href="#1-核心思想" class="headerlink" title="(1) 核心思想"></a>(1) 核心思想</h4><ul>
+<li><p><strong>一切皆为文件，若非文件，即为进程</strong></p>
+</li>
+<li><p>Linux的基本思想有两点：</p>
+<ul>
+<li>一切都是文件</li>
+<li>每个软件都有确定的用途。其中第一条详细来讲就是系统中的所有都归结为一个文件，包括命令、硬件和软件设备、操作系统、进程等等对于操作系统内核而言，都被视为拥有各自特性或类型的文件。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注：至于说Linux是基于Unix的，很大程度上也是因为这两者的基本思想十分相近。</p>
+</blockquote>
+<h4 id="2-完全免费"><a href="#2-完全免费" class="headerlink" title="(2) 完全免费"></a>(2) 完全免费</h4><p>Linux是一款免费的操作系统，用户可以通过网络或其他途径免费获得，并可以任意修改其源代码。这是其他的操作系统所做不到的。正是由于这一点，来自全世界的无数程序员参与了Linux的修改、编写工作，程序员可以根据自己的兴趣和灵感对其进行改变，这让Linux吸收了无数程序员的精华，不断壮大。</p>
+<h4 id="3-多用户、多任务"><a href="#3-多用户、多任务" class="headerlink" title="(3) 多用户、多任务"></a>(3) 多用户、多任务</h4><ul>
+<li>Linux支持多用户，各个用户对于自己的文件设备有自己特殊的权利，保证了各用户之间互不影响。</li>
+<li>多任务则是现在电脑最主要的一个特点，Linux可以使多个程序同时并独立地运行。</li>
+</ul>
+<blockquote>
+<p>注：Linux支持多用户同时在线,而Windows不可以。</p>
+</blockquote>
+<h4 id="4-较为良好的界面"><a href="#4-较为良好的界面" class="headerlink" title="(4) 较为良好的界面"></a>(4) 较为良好的界面</h4><ul>
+<li>Linux同时具有字符界面和图形界面。在字符界面用户可以通过键盘输入相应的指令来进行操作。它同时也提供了类似Windows图形界面的X-Window系统，用户可以使用鼠标对其进行操作。</li>
+<li>在X-Window环境中就和在Windows中相似，可以说是一个Linux版的Windows。</li>
+</ul>
+<h4 id="5-支持多种平台"><a href="#5-支持多种平台" class="headerlink" title="(5) 支持多种平台"></a>(5) 支持多种平台</h4><ul>
+<li>Linux可以运行在多种硬件平台上，如具有x86、680x0、SPARC、Alpha等处理器的平台。</li>
+<li>此外Linux还是一种嵌入式操作系统，可以运行在手机、平板、路由器、电视以及游戏机上。2001年1月份发布的Linux 2.4版内核已经能够完全支持Intel 64位芯片架构。同时Linux也支持多处理器技术。多个处理器同时工作，使系统性能大大提高。</li>
+</ul>
+<h4 id="6-不足"><a href="#6-不足" class="headerlink" title="(6) 不足"></a>(6) 不足</h4><ul>
+<li>生态环境不如Windows，许多硬件设备面对Linux的驱动程序不足，不少硬件厂商是在推出Windows版本的驱动程序后才编写Linux版的。<blockquote>
+<p>注：一些大硬件厂商在这方面做得还不错，他们的Linux版驱动程序一般都推出得比较及时。</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+        <tag>Linux</tag>
+      </tags>
   </entry>
 </search>
