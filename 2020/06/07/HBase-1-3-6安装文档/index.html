@@ -22,22 +22,25 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="前言 本文所述的Linux时间同步方法用于CDH安装时准备工作。以下是服务器的一些基本信息:  环境：自建虚拟机 系统：CentOS 7 NTP服务器：阿里云（ntp.aliyun.com） 同步频率：开机自动同步">
+<meta name="description" content="前提条件 Zookeeper的安装 Hadoop的安装 JDK的安装   注：  虽然HBase内部存在Zookeeper，但是业内不推荐这种做法。建议使用外部自行安装的Zookeeper进行管理，以便好的集成大数据其他组件。 HBase与Hive相似，数据存储在HDFS上，因此需要提前搭建好Hadoop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux时间同步">
-<meta property="og:url" content="http://example.com/2020/06/13/Linux%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/index.html">
+<meta property="og:title" content="HBase-1.3.6安装文档">
+<meta property="og:url" content="http://example.com/2020/06/07/HBase-1-3-6%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/index.html">
 <meta property="og:site_name" content="荣枯随缘">
-<meta property="og:description" content="前言 本文所述的Linux时间同步方法用于CDH安装时准备工作。以下是服务器的一些基本信息:  环境：自建虚拟机 系统：CentOS 7 NTP服务器：阿里云（ntp.aliyun.com） 同步频率：开机自动同步">
+<meta property="og:description" content="前提条件 Zookeeper的安装 Hadoop的安装 JDK的安装   注：  虽然HBase内部存在Zookeeper，但是业内不推荐这种做法。建议使用外部自行安装的Zookeeper进行管理，以便好的集成大数据其他组件。 HBase与Hive相似，数据存储在HDFS上，因此需要提前搭建好Hadoop">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-12T21:31:01.000Z">
-<meta property="article:modified_time" content="2020-12-15T11:30:52.133Z">
+<meta property="og:image" content="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/HBase/HBASEMaster.png?raw=true">
+<meta property="og:image" content="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/HBase/BackupMaster.png?raw=true">
+<meta property="article:published_time" content="2020-06-07T14:09:46.000Z">
+<meta property="article:modified_time" content="2020-12-23T15:29:22.763Z">
 <meta property="article:author" content="CharlieTao">
-<meta property="article:tag" content="操作系统">
-<meta property="article:tag" content="CentOS">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/HBase/HBASEMaster.png?raw=true">
 
 
-<link rel="canonical" href="http://example.com/2020/06/13/Linux%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/">
+<link rel="canonical" href="http://example.com/2020/06/07/HBase-1-3-6%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/">
 
 
 <script class="page-configurations">
@@ -49,7 +52,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Linux时间同步 | 荣枯随缘</title>
+<title>HBase-1.3.6安装文档 | 荣枯随缘</title>
   
 
 
@@ -211,7 +214,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NTP%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">NTP安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.1.</span> <span class="nav-text">1. 下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-etc-ntp-conf%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">2. 修改配置文件(&#x2F;etc&#x2F;ntp.conf）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BC%80%E5%90%AF%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.3.</span> <span class="nav-text">3. 开启服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%AE%BE%E7%BD%AENTP%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">2.4.</span> <span class="nav-text">4. 设置NTP服务开机自启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%B0%86%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E5%90%8C%E6%AD%A5%E5%88%B0NTP%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.5.</span> <span class="nav-text">5. 将系统时钟同步到NTP服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%B0%86%E7%A1%AC%E4%BB%B6%E6%97%B6%E9%92%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E5%90%8C%E6%AD%A5"><span class="nav-number">2.6.</span> <span class="nav-text">6. 将硬件时钟与系统时钟同步</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%92%E8%89%B2%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">角色分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">下载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%87%AA%E8%A1%8C%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81%EF%BC%8C%E7%BC%96%E8%AF%91%EF%BC%88Git%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">1. 自行下载源码，编译（Git）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.2.</span> <span class="nav-text">2. 浏览器下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.3.</span> <span class="nav-text">3. 服务器下载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="nav-number">5.</span> <span class="nav-text">启动与关闭</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C"><span class="nav-number">6.</span> <span class="nav-text">检验</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -312,7 +315,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/06/13/Linux%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/06/07/HBase-1-3-6%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -325,7 +328,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux时间同步
+          HBase-1.3.6安装文档
         </h1>
 
         <div class="post-meta-container">
@@ -336,14 +339,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-06-13 05:31:01" itemprop="dateCreated datePublished" datetime="2020-06-13T05:31:01+08:00">2020-06-13</time>
+      <time title="创建时间：2020-06-07 22:09:46" itemprop="dateCreated datePublished" datetime="2020-06-07T22:09:46+08:00">2020-06-07</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-15 19:30:52" itemprop="dateModified" datetime="2020-12-15T19:30:52+08:00">2020-12-15</time>
+        <time title="修改时间：2020-12-23 23:29:22" itemprop="dateModified" datetime="2020-12-23T23:29:22+08:00">2020-12-23</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -351,12 +354,16 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+          <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/HBase/" itemprop="url" rel="index"><span itemprop="name">HBase</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/06/13/Linux%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/" class="post-meta-item leancloud_visitors" data-flag-title="Linux时间同步" title="阅读次数">
+    <span id="/2020/06/07/HBase-1-3-6%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/" class="post-meta-item leancloud_visitors" data-flag-title="HBase-1.3.6安装文档" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -370,14 +377,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>696</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -388,38 +395,94 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>本文所述的Linux时间同步方法用于CDH安装时准备工作。以下是服务器的一些基本信息:</p>
+        <h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><ol>
+<li>Zookeeper的安装</li>
+<li>Hadoop的安装</li>
+<li>JDK的安装</li>
+</ol>
+<blockquote>
+<p>注：</p>
 <ol>
-<li>环境：自建虚拟机</li>
-<li>系统：CentOS 7</li>
-<li>NTP服务器：阿里云（ntp.aliyun.com）</li>
-<li>同步频率：开机自动同步</li>
+<li>虽然HBase内部存在Zookeeper，但是业内不推荐这种做法。建议使用外部自行安装的Zookeeper进行管理，以便好的集成大数据其他组件。</li>
+<li>HBase与Hive相似，数据存储在HDFS上，因此需要提前搭建好Hadoop</li>
 </ol>
 </blockquote>
 <a id="more"></a>
 
-<h1 id="NTP安装与配置"><a href="#NTP安装与配置" class="headerlink" title="NTP安装与配置"></a>NTP安装与配置</h1><h2 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. 下载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ntp</span><br></pre></td></tr></table></figure>
+<h1 id="角色分类"><a href="#角色分类" class="headerlink" title="角色分类"></a>角色分类</h1><table>
+<thead>
+<tr>
+<th align="center">机器名</th>
+<th align="center">bigdata001</th>
+<th align="center">bigdata002</th>
+<th align="center">bigdata003</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">QuorumPeerMain</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">HMaster</td>
+<td align="center"></td>
+<td align="center">√(Backup   )</td>
+<td align="center">√(Active)</td>
+</tr>
+<tr>
+<td align="center">HRegionServer</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+</tbody></table>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><h2 id="1-自行下载源码，编译（Git）"><a href="#1-自行下载源码，编译（Git）" class="headerlink" title="1. 自行下载源码，编译（Git）"></a>1. 自行下载源码，编译（Git）</h2><h2 id="2-浏览器下载"><a href="#2-浏览器下载" class="headerlink" title="2. 浏览器下载"></a>2. 浏览器下载</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://apache.website-solution.net/hbase/hbase-1.3.6/hbase-1.3.6-bin.tar.gz">HBase官网下载</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/apache/hbase/hbase-1.3.6/hbase-1.3.6-bin.tar.gz">国内镜像下载</a></p>
+</li>
+</ul>
+<h2 id="3-服务器下载"><a href="#3-服务器下载" class="headerlink" title="3. 服务器下载"></a>3. 服务器下载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#官网镜像</span></span><br><span class="line">wget https://apache.website-solution.net/hbase/hbase-1.3.6/hbase-1.3.6-bin.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#国内镜像</span></span><br><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/apache/hbase/hbase-1.3.6/hbase-1.3.6-bin.tar.gz</span><br></pre></td></tr></table></figure>
 
-<h2 id="2-修改配置文件-etc-ntp-conf）"><a href="#2-修改配置文件-etc-ntp-conf）" class="headerlink" title="2. 修改配置文件(/etc/ntp.conf）"></a>2. 修改配置文件(/etc/ntp.conf）</h2><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#注释掉一下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">0.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">1.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">2.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">3.centos.pool.ntp.org iburst</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#添加以下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br></pre></td></tr></table></figure>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><ul>
+<li>在conf/hbase-site.xml⽂件中添加以下内容</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 开启集群模式 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 元数据在HDFS上的地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://bigdata1:9000/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Zookeeper连接地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>bigdata1,bigdata2,bigdata3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Zookeeper元数据地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.property.dataDir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>/home/worker/software/zookeeper/zkData<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 文件存放地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>/home/worker/software/hbase/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="3-开启服务"><a href="#3-开启服务" class="headerlink" title="3. 开启服务"></a>3. 开启服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start ntpd</span><br></pre></td></tr></table></figure>
+<ul>
+<li>更改conf/ hbase-env.sh ⽂件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Java环境变量：</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/home/worker/software/jdk</span><br><span class="line"></span><br><span class="line"><span class="comment">#禁用HBASE内置Zookeeper：</span></span><br><span class="line"><span class="built_in">export</span> HBASE_MANAGES_ZK=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#HBASE PID地址（若果不添加以下内容，启动和停止HBASE时会自动去tmp目录下寻找改文件，报错）</span></span><br><span class="line"><span class="built_in">export</span> HBASE_PID_DIR=/home/worker/software/hbase/conf/hadoop/pids</span><br></pre></td></tr></table></figure>
 
-<h2 id="4-设置NTP服务开机自启"><a href="#4-设置NTP服务开机自启" class="headerlink" title="4. 设置NTP服务开机自启"></a>4. 设置NTP服务开机自启</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> ntpd</span><br></pre></td></tr></table></figure>
+<ul>
+<li>更改conf/regionservers⽂件</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在该文件中添加你的集群中即将充当HRegionserver角色的机器名</span></span><br><span class="line"><span class="attr">bigdata1</span></span><br><span class="line"><span class="attr">bigdata2</span></span><br><span class="line"><span class="attr">bigdata3</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="5-将系统时钟同步到NTP服务器"><a href="#5-将系统时钟同步到NTP服务器" class="headerlink" title="5. 将系统时钟同步到NTP服务器"></a>5. 将系统时钟同步到NTP服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntpdate -u ntp.aliyun.com</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建backup-masters⽂件</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在改文件中添加你的集群中即将充当backup HMaster角色的机器名</span></span><br><span class="line"><span class="attr">bigdata2</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="6-将硬件时钟与系统时钟同步"><a href="#6-将硬件时钟与系统时钟同步" class="headerlink" title="6. 将硬件时钟与系统时钟同步"></a>6. 将硬件时钟与系统时钟同步</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注：</p>
-<ol>
-<li>本次同步的频率为开机自启，也可以设置Linux自带的crontab定时器定时执行。具体根据自身需求而定。</li>
-<li>由于本次时间同步环境为自建虚拟机，时区在新建时就已经设置了；如果是线上服务器，可能会自动设置。具体后面会进一步补充。</li>
-<li>更换时区命令：ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</li>
-<li>查看当前时区命令： ll /etc/localtime</li>
-</ol>
+<ul>
+<li>分发HBASE整个⽬录到各个机器上（scp）</li>
+<li>配置HBASE环境变量<blockquote>
+<p>环境变量的配置较为简单，这里不做过多赘述。集群的整个环境变量配置在Hadoop集群搭建中已给出。</p>
 </blockquote>
+</li>
+</ul>
+<h1 id="启动与关闭"><a href="#启动与关闭" class="headerlink" title="启动与关闭"></a>启动与关闭</h1><ul>
+<li>在被认定为HMaster的机器上执⾏以下命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动</span></span><br><span class="line">start-hbase.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭</span></span><br><span class="line">stop-hbase.sh</span><br></pre></td></tr></table></figure>
+
+<h1 id="检验"><a href="#检验" class="headerlink" title="检验"></a>检验</h1><p>浏览器中输⼊<a href="http://bigdata3:16010、http://bigdata2:16010查看Master以及Backup">http://bigdata3:16010、http://bigdata2:16010查看Master以及Backup</a> Master</p>
+<blockquote>
+<p>注：HBASE默认Web UI端⼝号为16010，可在配置⽂件中更改。若显⽰正常，则安装完成。</p>
+</blockquote>
+<p>HMaster页面如下：<br><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/HBase/HBASEMaster.png?raw=true"></p>
+<p>Backup HMaster⻚⾯如下：<br><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/HBase/BackupMaster.png?raw=true"></p>
 
     </div>
 
@@ -429,21 +492,21 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
-              <a href="/tags/CentOS/" rel="tag"># CentOS</a>
+              <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"># 大数据</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/06/13/Linux%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F/" rel="prev" title="Linux更换镜像">
-                  <i class="fa fa-chevron-left"></i> Linux更换镜像
+                <a href="/2020/06/07/Hadoop-2-7-7%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/" rel="prev" title="Hadoop-2.7.7安装文档">
+                  <i class="fa fa-chevron-left"></i> Hadoop-2.7.7安装文档
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/06/13/%E5%88%9D%E8%AF%86Hive/" rel="next" title="初识Hive">
-                  初识Hive <i class="fa fa-chevron-right"></i>
+                <a href="/2020/06/12/%E5%88%9D%E8%AF%86Linux/" rel="next" title="初识Linux">
+                  初识Linux <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

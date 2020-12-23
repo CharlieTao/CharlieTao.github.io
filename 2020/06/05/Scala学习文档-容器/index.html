@@ -22,21 +22,26 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="山林不向四季起誓，荣枯随缘...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://example.com/categories/index.html">
+<meta name="description" content="Collection （容器）  根据中元素的组织方式和操作方式，Scala中的容器Collection可以分为有序和无序容器、可变和不可变等不同的容器类别。  Scala用了三个包来组成容器类：  scala.collection  scala.collection.mutable 包含了所有可变的容器（例：可变集合、可变映射）  scala.collection.immutable 包含了所有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala学习文档——容器">
+<meta property="og:url" content="http://example.com/2020/06/05/Scala%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E5%AE%B9%E5%99%A8/index.html">
 <meta property="og:site_name" content="荣枯随缘">
-<meta property="og:description" content="山林不向四季起誓，荣枯随缘...">
+<meta property="og:description" content="Collection （容器）  根据中元素的组织方式和操作方式，Scala中的容器Collection可以分为有序和无序容器、可变和不可变等不同的容器类别。  Scala用了三个包来组成容器类：  scala.collection  scala.collection.mutable 包含了所有可变的容器（例：可变集合、可变映射）  scala.collection.immutable 包含了所有">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-12-14T14:14:44.000Z">
-<meta property="article:modified_time" content="2020-12-14T14:18:14.472Z">
+<meta property="og:image" content="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.png?raw=true">
+<meta property="og:image" content="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.immutable.png?raw=true">
+<meta property="og:image" content="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.mutable.png?raw=true">
+<meta property="article:published_time" content="2020-06-05T01:02:57.000Z">
+<meta property="article:modified_time" content="2020-12-23T15:25:05.119Z">
 <meta property="article:author" content="CharlieTao">
-<meta property="article:tag" content="BigData">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="编程语言">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.png?raw=true">
 
 
-<link rel="canonical" href="http://example.com/categories/">
+<link rel="canonical" href="http://example.com/2020/06/05/Scala%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E5%AE%B9%E5%99%A8/">
 
 
 <script class="page-configurations">
@@ -44,12 +49,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>分类 | 荣枯随缘
-</title>
+<title>Scala学习文档——容器 | 荣枯随缘</title>
   
 
 
@@ -198,7 +202,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -211,6 +215,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Collection-%EF%BC%88%E5%AE%B9%E5%99%A8%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Collection （容器）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. 列表（List）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%9B%86%E5%90%88%EF%BC%88Set%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. 集合（Set）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%98%A0%E5%B0%84%EF%BC%88Map%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">3. 映射（Map）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88Iterator%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">4. 迭代器（Iterator）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%95%B0%E7%BB%84%EF%BC%88Array%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">5. 数组（Array）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%85%83%E7%BB%84%EF%BC%88Tuple%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">6. 元组（Tuple）</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -300,43 +305,198 @@
 </noscript>
 
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
   
   
 
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/06/05/Scala%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E5%AE%B9%E5%99%A8/">
 
-    
-    
-    
-    <div class="post-block" lang="zh-CN"><header class="post-header">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CharlieTao">
+      <meta itemprop="description" content="山林不向四季起誓，荣枯随缘...">
+    </span>
 
-<h1 class="post-title" itemprop="name headline">分类
-</h1>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="荣枯随缘">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scala学习文档——容器
+        </h1>
 
-<div class="post-meta-container">
-</div>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-</header>
+      <time title="创建时间：2020-06-05 09:02:57" itemprop="dateCreated datePublished" datetime="2020-06-05T09:02:57+08:00">2020-06-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-23 23:25:05" itemprop="dateModified" datetime="2020-12-23T23:25:05+08:00">2020-12-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Scala/" itemprop="url" rel="index"><span itemprop="name">Scala</span></a>
+        </span>
+    </span>
 
-      
-      
-      <div class="post-body"><div class="category-all-page">
-  <div class="category-all-title">
-    目前共计 7 个分类
-  </div>
-  <div class="category-all">
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Flume/">Flume</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/HBase/">HBase</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/">Hadoop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hive/">Hive</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Scala/">Scala</a><span class="category-list-count">1</span></li></ul></li></ul>
-  </div>
-</div>
-
+  
+    <span id="/2020/06/05/Scala%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E5%AE%B9%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="Scala学习文档——容器" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
       </div>
-      
-      
-      
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>984</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Collection-（容器）"><a href="#Collection-（容器）" class="headerlink" title="Collection （容器）"></a>Collection （容器）</h1><hr>
+<ul>
+<li><p>根据中元素的<code>组织方式</code>和<code>操作方式</code>，Scala中的容器Collection可以分为有序和无序容器、可变和不可变等不同的容器类别。</p>
+</li>
+<li><p>Scala用了三个包来组成容器类：</p>
+<ul>
+<li><p><strong>scala.collection</strong></p>
+</li>
+<li><p><strong>scala.collection.mutable</strong></p>
+<p><em>包含了所有<code>可变</code>的容器（例：可变集合、可变映射）</em></p>
+</li>
+<li><p><strong>scala.collection.immutable</strong></p>
+<p><em>包含了所有<code>不可变</code>的容器（可变集合、可变映射）</em></p>
+</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li><p>组织关系图</p>
+<ul>
+<li><p>下图显示了scala.collection包中所有的容器类。</p>
+<blockquote>
+<p>这些都是<code>高级抽象类</code>或<code>特质</code>。例如，所有容器的基本特质（trait）是Traverable特质。它为所有的容器定义了公用的foreach方法，用于对容器元素进行遍历操作</p>
+</blockquote>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.png?raw=true"></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>下图显示了scala.collection.immutable（<code>不可变</code>）包中所有的容器类</p>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.immutable.png?raw=true"></p>
+</li>
+</ul>
+<ul>
+<li><p>下图显示了scala.collection.mutable（<code>可变</code>）中的所有容器类</p>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.mutable.png?raw=true"></p>
+</li>
+</ul>
+<h2 id="1-列表（List）"><a href="#1-列表（List）" class="headerlink" title="1. 列表（List）"></a>1. 列表（List）</h2><hr>
+<p>列表是一种共享相同类型的<code>不可变</code>的对象序列，Scala的List定义在scala.collection.immutable包中</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> strList = <span class="type">List</span>(<span class="string">&quot;Bigdata&quot;</span>, <span class="string">&quot;Hadoop&quot;</span>, <span class="string">&quot;Spark&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：</p>
+<ol>
+<li>不同于Java的java.util.List，scala的List一旦被定义其值就不能改变了，因此声明List时必须初始化！</li>
+<li>这里用var声明不是说声明的List类型的strList是可变的，而是指向是可变的</li>
+</ol>
+</blockquote>
+<p>基本知识：</p>
+<ul>
+<li><p>列表有头部和尾部的概念，可以分别使用head和tail方法来获取</p>
+</li>
+<li><p>head返回的是列表第一个元素的值</p>
+</li>
+<li><p>tail返回的是除第一个元素外的其他值构成的新列表（这里体现出列表具有<code>递归</code>的<code>链表结构</code>）</p>
+</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> strList = <span class="type">List</span>(<span class="string">&quot;Bigdata&quot;</span>, <span class="string">&quot;Hadoop&quot;</span>, <span class="string">&quot;Spark&quot;</span>)</span><br><span class="line"></span><br><span class="line">#下面表达式返回“<span class="type">Bigdata</span>”</span><br><span class="line"><span class="keyword">var</span> str = strList.head</span><br><span class="line"></span><br><span class="line">#下面表达式返回<span class="type">List</span>(“<span class="type">Hadoop</span>”, <span class="string">&quot;Spark&quot;</span>)</span><br><span class="line"><span class="keyword">val</span> list = strList.tail</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-集合（Set）"><a href="#2-集合（Set）" class="headerlink" title="2. 集合（Set）"></a>2. 集合（Set）</h2><hr>
+<h2 id="3-映射（Map）"><a href="#3-映射（Map）" class="headerlink" title="3. 映射（Map）"></a>3. 映射（Map）</h2><hr>
+<h2 id="4-迭代器（Iterator）"><a href="#4-迭代器（Iterator）" class="headerlink" title="4. 迭代器（Iterator）"></a>4. 迭代器（Iterator）</h2><hr>
+<h2 id="5-数组（Array）"><a href="#5-数组（Array）" class="headerlink" title="5. 数组（Array）"></a>5. 数组（Array）</h2><hr>
+<h2 id="6-元组（Tuple）"><a href="#6-元组（Tuple）" class="headerlink" title="6. 元组（Tuple）"></a>6. 元组（Tuple）</h2><hr>
+
     </div>
 
     
     
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"># 大数据</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag"># 编程语言</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/06/05/Flume-1-9-0%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/" rel="next" title="Flume-1.9.0安装文档">
+                  Flume-1.9.0安装文档 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
 
 
 
