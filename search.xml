@@ -82,11 +82,11 @@
 </ul>
 ]]></content>
       <categories>
-        <category>大数据</category>
+        <category>Bigdata</category>
         <category>Flume</category>
       </categories>
       <tags>
-        <tag>大数据</tag>
+        <tag>Flume</tag>
       </tags>
   </entry>
   <entry>
@@ -182,12 +182,11 @@
 <p>Backup HMaster⻚⾯如下：<br><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/HBase/BackupMaster.png?raw=true"></p>
 ]]></content>
       <categories>
-        <category>大数据</category>
+        <category>Bigdata</category>
         <category>HBase</category>
       </categories>
       <tags>
-        <tag>大数据</tag>
-        <tag>数据库</tag>
+        <tag>HBase</tag>
       </tags>
   </entry>
   <entry>
@@ -332,11 +331,11 @@
 </ol>
 ]]></content>
       <categories>
-        <category>大数据</category>
+        <category>Bigdata</category>
         <category>Hadoop</category>
       </categories>
       <tags>
-        <tag>大数据</tag>
+        <tag>Hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -377,9 +376,9 @@
 ]]></content>
       <categories>
         <category>Linux</category>
+        <category>CentOS</category>
       </categories>
       <tags>
-        <tag>操作系统</tag>
         <tag>CentOS</tag>
       </tags>
   </entry>
@@ -416,9 +415,9 @@
 ]]></content>
       <categories>
         <category>Linux</category>
+        <category>CentOS</category>
       </categories>
       <tags>
-        <tag>操作系统</tag>
         <tag>CentOS</tag>
       </tags>
   </entry>
@@ -497,12 +496,236 @@
 <h2 id="6-元组（Tuple）"><a href="#6-元组（Tuple）" class="headerlink" title="6. 元组（Tuple）"></a>6. 元组（Tuple）</h2><hr>
 ]]></content>
       <categories>
-        <category>大数据</category>
+        <category>编程语言</category>
         <category>Scala</category>
       </categories>
       <tags>
-        <tag>大数据</tag>
-        <tag>编程语言</tag>
+        <tag>Scala</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spark学习文档--RDD编程</title>
+    <url>/2020/12/28/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-RDD%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="RDD简介"><a href="#RDD简介" class="headerlink" title="RDD简介"></a>RDD简介</h1><h2 id="1-含义"><a href="#1-含义" class="headerlink" title="1.含义"></a>1.含义</h2><pre><code>1. RDD（Resilient Distributed Dataset）叫做弹性分布式数据集，是Spark中最基本的数据抽象。
+2. 它代表一个不可变、可分区、里面的元素可并行计算的集合。
+3. RDD具有数据流模型的特点：自动容错、位置感知性调度和可伸缩性。
+4. RDD允许用户在执行多个查询时显式地将工作集缓存在内存中，后续的查询能够重用工作集，这极大地提升了查询速度</code></pre>
+<a id="more"></a>
+<h2 id="2-RDD的属性"><a href="#2-RDD的属性" class="headerlink" title="2.RDD的属性"></a>2.RDD的属性</h2><h3 id="（1）"><a href="#（1）" class="headerlink" title="（1）"></a>（1）</h3><h1 id="RDD的创建方式"><a href="#RDD的创建方式" class="headerlink" title="RDD的创建方式"></a>RDD的创建方式</h1><h1 id="RDD编程API"><a href="#RDD编程API" class="headerlink" title="RDD编程API"></a>RDD编程API</h1><h1 id="RDD的宽依赖与窄依赖"><a href="#RDD的宽依赖与窄依赖" class="headerlink" title="RDD的宽依赖与窄依赖"></a>RDD的宽依赖与窄依赖</h1>]]></content>
+      <categories>
+        <category>Bigdata</category>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>Spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spark学习文档--Spark安装文档</title>
+    <url>/2020/12/25/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-Spark%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/</url>
+    <content><![CDATA[<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><a id="more"></a>
+
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1>]]></content>
+      <categories>
+        <category>Bigdata</category>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>Spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spark学习文档--初识Spark</title>
+    <url>/2020/12/24/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E5%88%9D%E8%AF%86Spark/</url>
+    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="1-什么是Spark？"><a href="#1-什么是Spark？" class="headerlink" title="1. 什么是Spark？"></a>1. 什么是Spark？</h2><p>Apache Spark用于大规模数据处理的统一分析引擎。</p>
+<a id="more"></a>
+
+<h2 id="2-特点"><a href="#2-特点" class="headerlink" title="2. 特点"></a>2. 特点</h2><ul>
+<li>处理速度快<ul>
+<li>Apache Spark通过使用最先进的DAG调度器、查询优化器和物理执行引擎，实现了批处理和流数据的高性能</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>这里有Spark与MR速度对比图</p>
+</blockquote>
+<ul>
+<li><p>易用性好</p>
+<ul>
+<li><p>Spark提供了80多个高级操作符，可以轻松构建并行应用程序</p>
+</li>
+<li><p>Spark不仅支持Scala编写应用程序，而且还支持Java和Python 等语言进行编写</p>
+</li>
+</ul>
+</li>
+<li><p>通用性高</p>
+<ul>
+<li><p>Spark生态圈即BDAS（伯克利数据分析栈）所包含的组件：Spark Core 提供内存计算框架、SparkStreaming的实时处理应用、Spark SQL 的即席查询、MLlib的机器学习和GraphX的图处理</p>
+</li>
+<li><p>它们都是由AMP实验室提供，能够无缝地集成，并提供一站式解决平台</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>这里有Spark技术堆栈组成图</p>
+</blockquote>
+<ul>
+<li><p>随处运行</p>
+<ul>
+<li><p>Spark可以运行在Hadoop、Apache Mesos、Kubernetes、独立平台上，也可以运行在云上。它可以访问不同的数据源</p>
+</li>
+<li><p>你可以在EC2、Hadoop YARN、Mesos或Kubernetes上使用它的独立集群模式运行Spark。访问HDFS、Alluxio、Apache Cassandra、Apache HBase、Apache Hive和数百个其他数据源中的数据</p>
+<blockquote>
+<p>这里有Spark支持的技术框架截图</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Spark与MapReduce比较"><a href="#3-Spark与MapReduce比较" class="headerlink" title="3. Spark与MapReduce比较"></a>3. Spark与MapReduce比较</h2><p>Spark是通过借鉴Hadoop MapReduce发展而来的，继承了其分布式并行计算的优点，并改进了MapReduce明显的缺陷，具体体现在以下几个方面：</p>
+<pre><code>(1) Spark把中间数据放在内存中，迭代式运算效率高。MapReduce中的计算结果是保存在磁盘上，这样势必会影响整体的运行速度，而Spark支持DAG图的分布式并行计算的编程框架，减少了迭代过程中数据的落地，提高了处理效率
+
+(2) Spark的容错性高。Spark引进了弹性分布式数据集（Resilient Distributed Dataset，RDD）的概念，它是分布式在一组节点中的制度对象集合，这些集合是弹性的，如果数据一部分丢失，则可以根据 “血统” （即允许基于数据衍生过程）对它们进行重建。另外，在RDD计算时可以通过CheckPoint来实现容错，而CheckPoint有两种方式，即CheckPoint Data和Logging The Updates，用户可以控制采用哪种方式来实现容错。
+
+(3)Spark更加通用。不像Hadoop只提供了Map和Reduce两种操作，Spark提供农的数据集操作类型有很多种，大致分为转换操作和行动操作两大类。转换操作包括 Map、Filter、FlatMap、Sample、GroupByKey、ReduceByKey、Union、Join、Cogroup、MapValues、Sort、和PartionBy等多种操作类型，行动操作包括Collect、Reduce、Lookup和Save等操作类型。另外，各个处理节点之间的通信模型不再像Hadoop只有Shuffle一种模式，用户可以命名、物化、控制中间结果的存储、分区等</code></pre>
+<h1 id="Spark生态系统"><a href="#Spark生态系统" class="headerlink" title="Spark生态系统"></a>Spark生态系统</h1><blockquote>
+<p>注：以下说的组件均为重要内容，只做简单介绍，后面会一一整理专门的文档！</p>
+</blockquote>
+<h2 id="Spark-Core"><a href="#Spark-Core" class="headerlink" title="Spark Core"></a>Spark Core</h2><ul>
+<li><p>Spark Core提供了多种运行模式，不仅可以使用自身运行模式处理任务，如本地模式、Standalone，而且可以使用第三方资源调度框架来处理任务，如Yarn、Mesos等。相比较而言，第三方资源调度框架能够更细粒度管理资源</p>
+</li>
+<li><p>Spark Core提供了有向无环图（DAG）的分布式并行计算框架，并提供内存机制来支持多次迭代计算或者数据共享，大大减少迭代计算之间读取数据的开销，这对于需要进行多次迭代的数据挖掘和分析性能有着极大的提升。另外，在任务处理过程中移动计算而非移动数据，RDD Partition可以就近读取分布式文件系统中的数据到各个节点内存中进行计算</p>
+</li>
+<li><p>在Spark中引入了RDD的抽象，它是分布在一组几点钟的只读对象结婚，这些集合时弹性的，如果数据集一部分丢失，则可以根据“血统”对它们进行重建，保证了数据的高容错性</p>
+</li>
+</ul>
+<h2 id="Spark-Streaming"><a href="#Spark-Streaming" class="headerlink" title="Spark Streaming"></a>Spark Streaming</h2><ul>
+<li><p>Spark Streaming是一个对实时数据进行高吞吐、高容错的流式处理系统，可以对多种数据源（如Kafka、Flume、Twitter和ZeroMQ等）进行类似Map、Reduce和Join等复杂操作，并将结果保存到外部文件系统、数据库或应用到实时仪器盘。</p>
+</li>
+<li><p>相比其他的处理引擎要么只专注与流处理，要么只负责批处理（仅提供需要外部实现的流处理API接口），而Spark Streaming最大的优势是提供处理引擎和RDD编程模型可以同时进行批处理与流处理。</p>
+</li>
+</ul>
+<h2 id="Spark-SQL"><a href="#Spark-SQL" class="headerlink" title="Spark SQL"></a>Spark SQL</h2><ul>
+<li><p>Spark SQL是Spark用来操作结构化数据的程序包。通过Spark SQL，我们可以使用SQL或者Apache Hive版本的SQL方言（HQL）来查询数据。</p>
+</li>
+<li><p>Spark SQL支持多种数据源，比如Hive表、Parquet以及JSON等。</p>
+</li>
+<li><p>除了为Spark提供了一个SQL接口，Spark SQL还支持开发者将SQL和传统的RDD编程的数据操作方式相结合，不论是使用Python、Java还是Scala，开发者都可以在在单个的应用中同时使用SQL和复杂的数据分析。</p>
+</li>
+</ul>
+<h2 id="MLlib"><a href="#MLlib" class="headerlink" title="MLlib"></a>MLlib</h2><ul>
+<li><p>MLlib是Spark中提供常见的机器学习功能的组件</p>
+</li>
+<li><p>MLlib提供了包括分类、回归、聚类、协同过滤等，还提供了模型评估、数据导入等额外的支持功能。</p>
+</li>
+<li><p>MLlib还提供了一些更底层的机器学习原语，包括一个通用的的梯度下降优化算法</p>
+</li>
+</ul>
+<h2 id="GraphX"><a href="#GraphX" class="headerlink" title="GraphX"></a>GraphX</h2><ul>
+<li><p>GraphX是Spark中用来操作图（比如社交网络的朋友关系图）的组件，可以进行并行的图计算。</p>
+</li>
+<li><p>与Spark SQL与Spark Streaming类似，GraphX也拓展了Spark的RDD API，能用来创建一个顶点和边都包含任意属性的有向图</p>
+</li>
+<li><p>GraphX还支持针对图的各种操作（比如进行图分割的subgraph和操作所有顶点的mapVertices），以及一些常用图算法（比如PageRank和三角计数）</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Bigdata</category>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>Spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spark学习文档--核心原理</title>
+    <url>/2020/12/26/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h1 id="消息通信原理"><a href="#消息通信原理" class="headerlink" title="消息通信原理"></a>消息通信原理</h1><h1 id="作业执行原理"><a href="#作业执行原理" class="headerlink" title="作业执行原理"></a>作业执行原理</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="1-Application"><a href="#1-Application" class="headerlink" title="1. Application"></a>1. Application</h3><pre><code>表示本次运次的应用程序</code></pre>
+<h3 id="2-Driver"><a href="#2-Driver" class="headerlink" title="2. Driver"></a>2. Driver</h3><pre><code>表示main()函数，创建SparkContext。由SparkContext负责与CLusterManager通信，进行资源的申请、任务的分配和监控等。程序执行完毕后关闭SparkContext</code></pre>
+<a id="more"></a>
+
+<h3 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3. Executor"></a>3. Executor</h3><pre><code>某个Application运行在Worker节点上的一个进程，该进程负责运行某些Task，负责将数据存在内存或者磁盘上。在Spark On Yarn模式下，其进程名称为CoarseGrainedExecutorBackend，一个CoarseGrainedExecutorBackend能运行Task的数据就取决于分配给它的CPU的个数</code></pre>
+<h3 id="4-Worker"><a href="#4-Worker" class="headerlink" title="4. Worker"></a>4. Worker</h3><pre><code>集群中可以运行Application的节点。在Standalone模式中指的是通过slave文件配置的worker节点，在Spark On Yarn模式中指的就是NodeManager节点</code></pre>
+<h3 id="5-Task"><a href="#5-Task" class="headerlink" title="5. Task"></a>5. Task</h3><pre><code>在Executor进程中执行任务的工作单元，多个Task组成一个Stage</code></pre>
+<h3 id="6-Job"><a href="#6-Job" class="headerlink" title="6. Job"></a>6. Job</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">包含多个Task组成的并行计算，是有行动算子触发的</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-Stage"><a href="#7-Stage" class="headerlink" title="7. Stage"></a>7. Stage</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">每个Job会被拆分成很多组Task，作为一个TaskSet，其名称为Stage</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-DAGScheduler"><a href="#8-DAGScheduler" class="headerlink" title="8. DAGScheduler"></a>8. DAGScheduler</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">根据Job构建基于Stage的DAG，并提交Stage给TaskScheduler，其划分Stage的依据是RDD之间的依赖关系</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-TaskScheduler"><a href="#9-TaskScheduler" class="headerlink" title="9. TaskScheduler"></a>9. TaskScheduler</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">将TaskSet提交给Worker（集群）运行，每个Executor运行什么Task就是在此处分配的</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：<br>  有关Application、Driver、Job、Stage、Task之间的关系如下图所示：</p>
+</blockquote>
+<h2 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h2><h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><h3 id="文字说明"><a href="#文字说明" class="headerlink" title="文字说明"></a>文字说明</h3><ol>
+<li><p>构建SparkApplication的运行环境（启动SparkContext），SparkContext向资源管理器（Standalone、Mesos或者Yarn）注册并申请运行Executor资源</p>
+</li>
+<li><p>资源管理器分配Executor资源并启动StandaloneExecutorBackend，Executor运行情况将随着心跳发送到资源管理器上</p>
+</li>
+<li><p>SparkContext构成DAG图，将DAG图分解成Stage，并把TaskSet发送给Task Scheduler；Executor向SparkContext申请Task</p>
+</li>
+<li><p>Task Scheduler将Task发放给Executor运行同时SparkContext将应用程序代码发放给Executor</p>
+</li>
+<li><p>Task在Executor上运行，运行完毕释放所有资源</p>
+</li>
+</ol>
+<h1 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h1><h1 id="容错及HA"><a href="#容错及HA" class="headerlink" title="容错及HA"></a>容错及HA</h1><h1 id="监控管理"><a href="#监控管理" class="headerlink" title="监控管理"></a>监控管理</h1>]]></content>
+      <categories>
+        <category>Bigdata</category>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>Spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spark学习文档--运行流程</title>
+    <url>/2020/12/27/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="1-Application"><a href="#1-Application" class="headerlink" title="1. Application"></a>1. Application</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表示本次运次的应用程序</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Driver"><a href="#2-Driver" class="headerlink" title="2. Driver"></a>2. Driver</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表示main()函数，创建SparkContext。由SparkContext负责与CLusterManager通信，进行资源的申请、任务的分配和监控等。程序执行完毕后关闭SparkContext</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3. Executor"></a>3. Executor</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">某个Application运行在Worker节点上的一个进程，该进程负责运行某些Task，负责将数据存在内存或者磁盘上。在Spark On Yarn模式下，其进程名称为CoarseGrainedExecutorBackend，一个CoarseGrainedExecutorBackend能运行Task的数据就取决于分配给它的CPU的个数</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Worker"><a href="#4-Worker" class="headerlink" title="4. Worker"></a>4. Worker</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">集群中可以运行Application的节点。在Standalone模式中指的是通过slave文件配置的worker节点，在Spark On Yarn模式中指的就是NodeManager节点</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Task"><a href="#5-Task" class="headerlink" title="5. Task"></a>5. Task</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在Executor进程中执行任务的工作单元，多个Task组成一个Stage</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Job"><a href="#6-Job" class="headerlink" title="6. Job"></a>6. Job</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">包含多个Task组成的并行计算，是有行动算子触发的</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Stage"><a href="#7-Stage" class="headerlink" title="7. Stage"></a>7. Stage</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">每个Job会被拆分成很多组Task，作为一个TaskSet，其名称为Stage</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-DAGScheduler"><a href="#8-DAGScheduler" class="headerlink" title="8. DAGScheduler"></a>8. DAGScheduler</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">根据Job构建基于Stage的DAG，并提交Stage给TaskScheduler，其划分Stage的依据是RDD之间的依赖关系</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-TaskScheduler"><a href="#9-TaskScheduler" class="headerlink" title="9. TaskScheduler"></a>9. TaskScheduler</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">将TaskSet提交给Worker（集群）运行，每个Executor运行什么Task就是在此处分配的</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：<br>  有关Application、Driver、Job、Stage、Task之间的关系如下图所示：</p>
+</blockquote>
+<h1 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h1><h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><h2 id="文字说明"><a href="#文字说明" class="headerlink" title="文字说明"></a>文字说明</h2><ol>
+<li><p>构建SparkApplication的运行环境（启动SparkContext），SparkContext向资源管理器（Standalone、Mesos或者Yarn）注册并申请运行Executor资源</p>
+</li>
+<li><p>资源管理器分配Executor资源并启动StandaloneExecutorBackend，Executor运行情况将随着心跳发送到资源管理器上</p>
+</li>
+<li><p>SparkContext构成DAG图，将DAG图分解成Stage，并把TaskSet发送给Task Scheduler；Executor向SparkContext申请Task</p>
+</li>
+<li><p>Task Scheduler将Task发放给Executor运行同时SparkContext将应用程序代码发放给Executor</p>
+</li>
+<li><p>Task在Executor上运行，运行完毕释放所有资源</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Bigdata</category>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>Spark</tag>
       </tags>
   </entry>
   <entry>
@@ -533,11 +756,11 @@
 </ul>
 ]]></content>
       <categories>
-        <category>大数据</category>
+        <category>Bigdata</category>
         <category>Hive</category>
       </categories>
       <tags>
-        <tag>大数据</tag>
+        <tag>Hive</tag>
       </tags>
   </entry>
   <entry>
@@ -621,10 +844,10 @@
 </ul>
 ]]></content>
       <categories>
+        <category>操作系统</category>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>操作系统</tag>
         <tag>Linux</tag>
       </tags>
   </entry>
