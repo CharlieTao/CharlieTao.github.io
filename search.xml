@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CnetOS时间同步</title>
+    <url>/2020/06/13/CentOS%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文所述的CnetOS时间同步方法用于CDH安装时准备工作。以下是服务器的一些基本信息:</p>
+<ol>
+<li>环境：自建虚拟机</li>
+<li>系统：CentOS 7</li>
+<li>NTP服务器：阿里云（ntp.aliyun.com）</li>
+<li>同步频率：开机自动同步</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="NTP安装与配置"><a href="#NTP安装与配置" class="headerlink" title="NTP安装与配置"></a>NTP安装与配置</h1><h2 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. 下载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install ntp</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-修改配置文件-etc-ntp-conf）"><a href="#2-修改配置文件-etc-ntp-conf）" class="headerlink" title="2. 修改配置文件(/etc/ntp.conf）"></a>2. 修改配置文件(/etc/ntp.conf）</h2><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#注释掉一下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">0.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">1.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">2.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">3.centos.pool.ntp.org iburst</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#添加以下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-开启服务"><a href="#3-开启服务" class="headerlink" title="3. 开启服务"></a>3. 开启服务</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start ntpd</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-设置NTP服务开机自启"><a href="#4-设置NTP服务开机自启" class="headerlink" title="4. 设置NTP服务开机自启"></a>4. 设置NTP服务开机自启</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> ntpd</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-将系统时钟同步到NTP服务器"><a href="#5-将系统时钟同步到NTP服务器" class="headerlink" title="5. 将系统时钟同步到NTP服务器"></a>5. 将系统时钟同步到NTP服务器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ntpdate -u ntp.aliyun.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-将硬件时钟与系统时钟同步"><a href="#6-将硬件时钟与系统时钟同步" class="headerlink" title="6. 将硬件时钟与系统时钟同步"></a>6. 将硬件时钟与系统时钟同步</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：</p>
+<ol>
+<li>本次同步的频率为开机自启，也可以设置Linux自带的crontab定时器定时执行。具体根据自身需求而定。</li>
+<li>由于本次时间同步环境为自建虚拟机，时区在新建时就已经设置了；如果是线上服务器，可能会自动设置。具体后面会进一步补充。</li>
+<li>更换时区命令：ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</li>
+<li>查看当前时区命令： ll /etc/localtime</li>
+</ol>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CnetOS更换镜像</title>
+    <url>/2020/06/13/CnetOS%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>由于新建虚拟机时，使用系统自带的CentOS镜像在使用yum命令下载各种软件的速度不太理想，因此本文用于记录更换原始镜像为国内镜像的步骤。以下是服务器信息：</p>
+<ol>
+<li>环境：自建虚拟机</li>
+<li>系统：CentOS 7</li>
+<li>镜像：阿里云</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><h2 id="安装wget-curl"><a href="#安装wget-curl" class="headerlink" title="安装wget/curl"></a>安装wget/curl</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">yum -y install curl</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="1-备份原本的镜像"><a href="#1-备份原本的镜像" class="headerlink" title="1. 备份原本的镜像"></a>1. 备份原本的镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-下载镜像并写入指定文件中"><a href="#2-下载镜像并写入指定文件中" class="headerlink" title="2. 下载镜像并写入指定文件中"></a>2. 下载镜像并写入指定文件中</h2><ul>
+<li>以下两种方式均可下载目标镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#使用Wget命令</span></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用curl命令</span></span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：-o后面路径+指定文件名，作用是将目标镜像中的内容写到指定目录的指定文件中</p>
+</blockquote>
+<h2 id="3-更新镜像源"><a href="#3-更新镜像源" class="headerlink" title="3. 更新镜像源"></a>3. 更新镜像源</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#清除缓存</span></span><br><span class="line">yum clean all</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成缓存</span></span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：网上有一篇博客说要将跟换后的CentOS-Base.repo中的所有http开头的更改为https，作用暂时未知（可能网络安全），后续了解后，会进一步补充。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Flume-1.9.0安装文档</title>
     <url>/2020/06/05/Flume-1-9-0%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/</url>
     <content><![CDATA[<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><h2 id="JDK的安装"><a href="#JDK的安装" class="headerlink" title="JDK的安装"></a>JDK的安装</h2><blockquote>
@@ -336,89 +419,6 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux时间同步</title>
-    <url>/2020/06/13/Linux%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>本文所述的Linux时间同步方法用于CDH安装时准备工作。以下是服务器的一些基本信息:</p>
-<ol>
-<li>环境：自建虚拟机</li>
-<li>系统：CentOS 7</li>
-<li>NTP服务器：阿里云（ntp.aliyun.com）</li>
-<li>同步频率：开机自动同步</li>
-</ol>
-</blockquote>
-<a id="more"></a>
-
-<h1 id="NTP安装与配置"><a href="#NTP安装与配置" class="headerlink" title="NTP安装与配置"></a>NTP安装与配置</h1><h2 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. 下载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install ntp</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-修改配置文件-etc-ntp-conf）"><a href="#2-修改配置文件-etc-ntp-conf）" class="headerlink" title="2. 修改配置文件(/etc/ntp.conf）"></a>2. 修改配置文件(/etc/ntp.conf）</h2><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#注释掉一下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">0.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">1.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">2.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">3.centos.pool.ntp.org iburst</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#添加以下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-开启服务"><a href="#3-开启服务" class="headerlink" title="3. 开启服务"></a>3. 开启服务</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start ntpd</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-设置NTP服务开机自启"><a href="#4-设置NTP服务开机自启" class="headerlink" title="4. 设置NTP服务开机自启"></a>4. 设置NTP服务开机自启</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> ntpd</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-将系统时钟同步到NTP服务器"><a href="#5-将系统时钟同步到NTP服务器" class="headerlink" title="5. 将系统时钟同步到NTP服务器"></a>5. 将系统时钟同步到NTP服务器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ntpdate -u ntp.aliyun.com</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-将硬件时钟与系统时钟同步"><a href="#6-将硬件时钟与系统时钟同步" class="headerlink" title="6. 将硬件时钟与系统时钟同步"></a>6. 将硬件时钟与系统时钟同步</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注：</p>
-<ol>
-<li>本次同步的频率为开机自启，也可以设置Linux自带的crontab定时器定时执行。具体根据自身需求而定。</li>
-<li>由于本次时间同步环境为自建虚拟机，时区在新建时就已经设置了；如果是线上服务器，可能会自动设置。具体后面会进一步补充。</li>
-<li>更换时区命令：ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</li>
-<li>查看当前时区命令： ll /etc/localtime</li>
-</ol>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux更换镜像</title>
-    <url>/2020/06/13/Linux%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>由于新建虚拟机时，使用系统自带的CentOS镜像在使用yum命令下载各种软件的速度不太理想，因此本文用于记录更换原始镜像为国内镜像的步骤。以下是服务器信息：</p>
-<ol>
-<li>环境：自建虚拟机</li>
-<li>系统：CentOS 7</li>
-<li>镜像：阿里云</li>
-</ol>
-</blockquote>
-<a id="more"></a>
-
-<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><h2 id="安装wget-curl"><a href="#安装wget-curl" class="headerlink" title="安装wget/curl"></a>安装wget/curl</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">yum -y install curl</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="1-备份原本的镜像"><a href="#1-备份原本的镜像" class="headerlink" title="1. 备份原本的镜像"></a>1. 备份原本的镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-下载镜像并写入指定文件中"><a href="#2-下载镜像并写入指定文件中" class="headerlink" title="2. 下载镜像并写入指定文件中"></a>2. 下载镜像并写入指定文件中</h2><ul>
-<li>以下两种方式均可下载目标镜像</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#使用Wget命令</span></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用curl命令</span></span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注：-o后面路径+指定文件名，作用是将目标镜像中的内容写到指定目录的指定文件中</p>
-</blockquote>
-<h2 id="3-更新镜像源"><a href="#3-更新镜像源" class="headerlink" title="3. 更新镜像源"></a>3. 更新镜像源</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#清除缓存</span></span><br><span class="line">yum clean all</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成缓存</span></span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注：网上有一篇博客说要将跟换后的CentOS-Base.repo中的所有http开头的更改为https，作用暂时未知（可能网络安全），后续了解后，会进一步补充。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
       </tags>
   </entry>
   <entry>
