@@ -46,7 +46,7 @@
   </entry>
   <entry>
     <title>CnetOS更换镜像</title>
-    <url>/2020/06/13/CnetOS%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F/</url>
+    <url>/2020/06/13/CentOS%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
 <p>由于新建虚拟机时，使用系统自带的CentOS镜像在使用yum命令下载各种软件的速度不太理想，因此本文用于记录更换原始镜像为国内镜像的步骤。以下是服务器信息：</p>
 <ol>
