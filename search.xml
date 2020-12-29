@@ -165,7 +165,7 @@
 </ul>
 ]]></content>
       <categories>
-        <category>Bigdata</category>
+        <category>BigData</category>
         <category>Flume</category>
       </categories>
       <tags>
@@ -265,7 +265,7 @@
 <p>Backup HMaster⻚⾯如下：<br><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/HBase/BackupMaster.png?raw=true"></p>
 ]]></content>
       <categories>
-        <category>Bigdata</category>
+        <category>BigData</category>
         <category>HBase</category>
       </categories>
       <tags>
@@ -414,7 +414,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Bigdata</category>
+        <category>BigData</category>
         <category>Hadoop</category>
       </categories>
       <tags>
@@ -513,7 +513,7 @@
 <a id="more"></a>
 <h2 id="2-RDD的属性"><a href="#2-RDD的属性" class="headerlink" title="2.RDD的属性"></a>2.RDD的属性</h2><h3 id="（1）"><a href="#（1）" class="headerlink" title="（1）"></a>（1）</h3><h1 id="RDD的创建方式"><a href="#RDD的创建方式" class="headerlink" title="RDD的创建方式"></a>RDD的创建方式</h1><h1 id="RDD编程API"><a href="#RDD编程API" class="headerlink" title="RDD编程API"></a>RDD编程API</h1><h1 id="RDD的宽依赖与窄依赖"><a href="#RDD的宽依赖与窄依赖" class="headerlink" title="RDD的宽依赖与窄依赖"></a>RDD的宽依赖与窄依赖</h1>]]></content>
       <categories>
-        <category>Bigdata</category>
+        <category>BigData</category>
         <category>Spark</category>
       </categories>
       <tags>
@@ -527,7 +527,7 @@
 
 <h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1>]]></content>
       <categories>
-        <category>Bigdata</category>
+        <category>BigData</category>
         <category>Spark</category>
       </categories>
       <tags>
@@ -632,7 +632,7 @@
 </ul>
 ]]></content>
       <categories>
-        <category>Bigdata</category>
+        <category>BigData</category>
         <category>Spark</category>
       </categories>
       <tags>
@@ -674,7 +674,7 @@
 </ol>
 <h1 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h1><h1 id="容错及HA"><a href="#容错及HA" class="headerlink" title="容错及HA"></a>容错及HA</h1><h1 id="监控管理"><a href="#监控管理" class="headerlink" title="监控管理"></a>监控管理</h1>]]></content>
       <categories>
-        <category>Bigdata</category>
+        <category>BigData</category>
         <category>Spark</category>
       </categories>
       <tags>
@@ -721,7 +721,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Bigdata</category>
+        <category>BigData</category>
         <category>Spark</category>
       </categories>
       <tags>
@@ -756,7 +756,7 @@
 </ul>
 ]]></content>
       <categories>
-        <category>Bigdata</category>
+        <category>BigData</category>
         <category>Hive</category>
       </categories>
       <tags>
