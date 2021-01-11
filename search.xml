@@ -3,7 +3,8 @@
   <entry>
     <title>CnetOS时间同步</title>
     <url>/2020/06/13/CentOS%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
+<blockquote>
 <p>本文所述的CnetOS时间同步方法用于CDH安装时准备工作。以下是服务器的一些基本信息:</p>
 <ol>
 <li>环境：自建虚拟机</li>
@@ -14,7 +15,8 @@
 </blockquote>
 <a id="more"></a>
 
-<h1 id="NTP安装与配置"><a href="#NTP安装与配置" class="headerlink" title="NTP安装与配置"></a>NTP安装与配置</h1><h2 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. 下载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install ntp</span><br></pre></td></tr></table></figure>
+<h1 id="NTP安装与配置"><a href="#NTP安装与配置" class="headerlink" title="NTP安装与配置"></a>NTP安装与配置</h1><hr>
+<h2 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. 下载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install ntp</span><br></pre></td></tr></table></figure>
 
 <h2 id="2-修改配置文件-etc-ntp-conf）"><a href="#2-修改配置文件-etc-ntp-conf）" class="headerlink" title="2. 修改配置文件(/etc/ntp.conf）"></a>2. 修改配置文件(/etc/ntp.conf）</h2><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#注释掉一下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">0.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">1.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">2.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="attr">server</span> <span class="string">3.centos.pool.ntp.org iburst</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#添加以下内容：</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br><span class="line"><span class="attr">server</span> <span class="string">ntp.aliyun.com</span></span><br></pre></td></tr></table></figure>
 
@@ -27,7 +29,7 @@
 <h2 id="6-将硬件时钟与系统时钟同步"><a href="#6-将硬件时钟与系统时钟同步" class="headerlink" title="6. 将硬件时钟与系统时钟同步"></a>6. 将硬件时钟与系统时钟同步</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>注：</p>
+<p><code>尖叫提示</code>：</p>
 <ol>
 <li>本次同步的频率为开机自启，也可以设置Linux自带的crontab定时器定时执行。具体根据自身需求而定。</li>
 <li>由于本次时间同步环境为自建虚拟机，时区在新建时就已经设置了；如果是线上服务器，可能会自动设置。具体后面会进一步补充。</li>
@@ -47,7 +49,8 @@
   <entry>
     <title>CnetOS更换镜像</title>
     <url>/2020/06/13/CentOS%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
+<blockquote>
 <p>由于新建虚拟机时，使用系统自带的CentOS镜像在使用yum命令下载各种软件的速度不太理想，因此本文用于记录更换原始镜像为国内镜像的步骤。以下是服务器信息：</p>
 <ol>
 <li>环境：自建虚拟机</li>
@@ -57,9 +60,11 @@
 </blockquote>
 <a id="more"></a>
 
-<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><h2 id="安装wget-curl"><a href="#安装wget-curl" class="headerlink" title="安装wget/curl"></a>安装wget/curl</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">yum -y install curl</span><br></pre></td></tr></table></figure>
+<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><hr>
+<h2 id="安装wget-curl"><a href="#安装wget-curl" class="headerlink" title="安装wget/curl"></a>安装wget/curl</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">yum -y install curl</span><br></pre></td></tr></table></figure>
 
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="1-备份原本的镜像"><a href="#1-备份原本的镜像" class="headerlink" title="1. 备份原本的镜像"></a>1. 备份原本的镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><hr>
+<h2 id="1-备份原本的镜像"><a href="#1-备份原本的镜像" class="headerlink" title="1. 备份原本的镜像"></a>1. 备份原本的镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure>
 
 <h2 id="2-下载镜像并写入指定文件中"><a href="#2-下载镜像并写入指定文件中" class="headerlink" title="2. 下载镜像并写入指定文件中"></a>2. 下载镜像并写入指定文件中</h2><ul>
 <li>以下两种方式均可下载目标镜像</li>
@@ -67,12 +72,12 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#使用Wget命令</span></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用curl命令</span></span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>注：-o后面路径+指定文件名，作用是将目标镜像中的内容写到指定目录的指定文件中</p>
+<p><code>尖叫提示</code>：-o后面路径+指定文件名，作用是将目标镜像中的内容写到指定目录的指定文件中</p>
 </blockquote>
 <h2 id="3-更新镜像源"><a href="#3-更新镜像源" class="headerlink" title="3. 更新镜像源"></a>3. 更新镜像源</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#清除缓存</span></span><br><span class="line">yum clean all</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成缓存</span></span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>注：网上有一篇博客说要将跟换后的CentOS-Base.repo中的所有http开头的更改为https，作用暂时未知（可能网络安全），后续了解后，会进一步补充。</p>
+<p><code>尖叫提示</code>：网上有一篇博客说要将跟换后的CentOS-Base.repo中的所有http开头的更改为https，作用暂时未知（可能网络安全），后续了解后，会进一步补充。</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -424,8 +429,7 @@
   <entry>
     <title>Scala学习文档-容器</title>
     <url>/2020/06/05/Scala%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E5%AE%B9%E5%99%A8/</url>
-    <content><![CDATA[<h1 id="Collection-（容器）"><a href="#Collection-（容器）" class="headerlink" title="Collection （容器）"></a>Collection （容器）</h1><hr>
-<ul>
+    <content><![CDATA[<h1 id="Collection-（容器）"><a href="#Collection-（容器）" class="headerlink" title="Collection （容器）"></a>Collection （容器）</h1><ul>
 <li><p>根据中元素的<code>组织方式</code>和<code>操作方式</code>，Scala中的容器Collection可以分为有序和无序容器、可变和不可变等不同的容器类别。</p>
 </li>
 <li><p>Scala用了三个包来组成容器类：</p>
@@ -506,12 +510,18 @@
   <entry>
     <title>Spark学习文档-RDD编程</title>
     <url>/2020/12/28/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-RDD%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="RDD简介"><a href="#RDD简介" class="headerlink" title="RDD简介"></a>RDD简介</h1><h2 id="1-含义"><a href="#1-含义" class="headerlink" title="1.含义"></a>1.含义</h2><pre><code>1. RDD（Resilient Distributed Dataset）叫做弹性分布式数据集，是Spark中最基本的数据抽象。
-2. 它代表一个不可变、可分区、里面的元素可并行计算的集合。
-3. RDD具有数据流模型的特点：自动容错、位置感知性调度和可伸缩性。
-4. RDD允许用户在执行多个查询时显式地将工作集缓存在内存中，后续的查询能够重用工作集，这极大地提升了查询速度</code></pre>
-<a id="more"></a>
-<h2 id="2-RDD的属性"><a href="#2-RDD的属性" class="headerlink" title="2.RDD的属性"></a>2.RDD的属性</h2><h3 id="（1）"><a href="#（1）" class="headerlink" title="（1）"></a>（1）</h3><h1 id="RDD的创建方式"><a href="#RDD的创建方式" class="headerlink" title="RDD的创建方式"></a>RDD的创建方式</h1><h1 id="RDD编程API"><a href="#RDD编程API" class="headerlink" title="RDD编程API"></a>RDD编程API</h1><h1 id="RDD的宽依赖与窄依赖"><a href="#RDD的宽依赖与窄依赖" class="headerlink" title="RDD的宽依赖与窄依赖"></a>RDD的宽依赖与窄依赖</h1>]]></content>
+    <content><![CDATA[<h1 id="RDD简介"><a href="#RDD简介" class="headerlink" title="RDD简介"></a>RDD简介</h1><hr>
+<h2 id="1-含义"><a href="#1-含义" class="headerlink" title="1.含义"></a>1.含义</h2><ul>
+<li>RDD（Resilient Distributed Dataset）叫做弹性分布式数据集，是Spark中最基本的数据抽象。</li>
+<li>它代表一个不可变、可分区、里面的元素可并行计算的集合。</li>
+<li>RDD具有数据流模型的特点：自动容错、位置感知性调度和可伸缩性。</li>
+<li>RDD允许用户在执行多个查询时显式地将工作集缓存在内存中，后续的查询能够重用工作集，这极大地提升了查询速度<a id="more"></a>
+
+</li>
+</ul>
+<h2 id="2-RDD的属性"><a href="#2-RDD的属性" class="headerlink" title="2.RDD的属性"></a>2.RDD的属性</h2><h3 id="（1）"><a href="#（1）" class="headerlink" title="（1）"></a>（1）</h3><h1 id="RDD的创建方式"><a href="#RDD的创建方式" class="headerlink" title="RDD的创建方式"></a>RDD的创建方式</h1><hr>
+<h1 id="RDD编程API"><a href="#RDD编程API" class="headerlink" title="RDD编程API"></a>RDD编程API</h1><hr>
+<h1 id="RDD的宽依赖与窄依赖"><a href="#RDD的宽依赖与窄依赖" class="headerlink" title="RDD的宽依赖与窄依赖"></a>RDD的宽依赖与窄依赖</h1>]]></content>
       <categories>
         <category>BigData</category>
         <category>Spark</category>
@@ -523,9 +533,13 @@
   <entry>
     <title>Spark学习文档-Spark安装文档</title>
     <url>/2020/12/25/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-Spark%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/</url>
-    <content><![CDATA[<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><a id="more"></a>
-
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1>]]></content>
+    <content><![CDATA[<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><hr>
+<a id="more"></a>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><hr>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><hr>
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><hr>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><hr>
+]]></content>
       <categories>
         <category>BigData</category>
         <category>Spark</category>
@@ -537,12 +551,14 @@
   <entry>
     <title>Spark学习文档-初识Spark</title>
     <url>/2020/12/24/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E5%88%9D%E8%AF%86Spark/</url>
-    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="1-什么是Spark？"><a href="#1-什么是Spark？" class="headerlink" title="1. 什么是Spark？"></a>1. 什么是Spark？</h2><p>Apache Spark用于大规模数据处理的统一分析引擎。</p>
+    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><hr>
+<p>什么是Spark？<br><code>Apache Spark用于大规模数据处理的统一分析引擎。</code></p>
 <a id="more"></a>
 
-<h2 id="2-特点"><a href="#2-特点" class="headerlink" title="2. 特点"></a>2. 特点</h2><ul>
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><hr>
+<ul>
 <li>处理速度快<ul>
-<li>Apache Spark通过使用最先进的DAG调度器、查询优化器和物理执行引擎，实现了批处理和流数据的高性能</li>
+<li>Apache Spark通过使用最先进的<code>DAG调度器</code>、<code>查询优化器</code>和<code>物理执行引擎</code>，实现了批处理和流数据的高性能</li>
 </ul>
 </li>
 </ul>
@@ -583,21 +599,29 @@
 </ul>
 </li>
 </ul>
-<h2 id="3-Spark与MapReduce比较"><a href="#3-Spark与MapReduce比较" class="headerlink" title="3. Spark与MapReduce比较"></a>3. Spark与MapReduce比较</h2><p>Spark是通过借鉴Hadoop MapReduce发展而来的，继承了其分布式并行计算的优点，并改进了MapReduce明显的缺陷，具体体现在以下几个方面：</p>
-<pre><code>(1) Spark把中间数据放在内存中，迭代式运算效率高。MapReduce中的计算结果是保存在磁盘上，这样势必会影响整体的运行速度，而Spark支持DAG图的分布式并行计算的编程框架，减少了迭代过程中数据的落地，提高了处理效率
-
-(2) Spark的容错性高。Spark引进了弹性分布式数据集（Resilient Distributed Dataset，RDD）的概念，它是分布式在一组节点中的制度对象集合，这些集合是弹性的，如果数据一部分丢失，则可以根据 “血统” （即允许基于数据衍生过程）对它们进行重建。另外，在RDD计算时可以通过CheckPoint来实现容错，而CheckPoint有两种方式，即CheckPoint Data和Logging The Updates，用户可以控制采用哪种方式来实现容错。
-
-(3)Spark更加通用。不像Hadoop只提供了Map和Reduce两种操作，Spark提供农的数据集操作类型有很多种，大致分为转换操作和行动操作两大类。转换操作包括 Map、Filter、FlatMap、Sample、GroupByKey、ReduceByKey、Union、Join、Cogroup、MapValues、Sort、和PartionBy等多种操作类型，行动操作包括Collect、Reduce、Lookup和Save等操作类型。另外，各个处理节点之间的通信模型不再像Hadoop只有Shuffle一种模式，用户可以命名、物化、控制中间结果的存储、分区等</code></pre>
-<h1 id="Spark生态系统"><a href="#Spark生态系统" class="headerlink" title="Spark生态系统"></a>Spark生态系统</h1><blockquote>
+<h1 id="Spark与MapReduce比较"><a href="#Spark与MapReduce比较" class="headerlink" title="Spark与MapReduce比较"></a>Spark与MapReduce比较</h1><hr>
+<ul>
+<li><p>Spark是通过借鉴Hadoop MapReduce发展而来的，继承了其分布式并行计算的优点，并改进了MapReduce明显的缺陷，具体体现在以下几点：</p>
+<ul>
+<li><p><code>Spark把中间数据放在内存中，迭代式运算效率高</code>。MapReduce中的计算结果是保存在磁盘上，这样势必会影响整体的运行速度，而Spark支持DAG图的分布式并行计算的编程框架，减少了迭代过程中数据的落地，提高了处理效率</p>
+</li>
+<li><p>Spark的容错性高。Spark引进了<code>弹性分布式数据集</code>（Resilient Distributed Dataset，RDD）的概念，它是分布式在一组节点中的制度对象集合，这些集合是弹性的，如果数据一部分丢失，则可以根据 “血统” （即允许基于数据衍生过程）对它们进行重建。另外，在RDD计算时可以通过<code>CheckPoint</code>来实现容错，而CheckPoint有两种方式，即CheckPoint Data和Logging The Updates，用户可以控制采用哪种方式来实现容错。</p>
+</li>
+<li><p>Spark更加通用。不像Hadoop只提供了Map和Reduce两种操作，Spark提供农的数据集操作类型有很多种，大致分为<code>转换操作</code>和<code>行动操作</code>两大类。转换操作包括 Map、Filter、FlatMap、Sample、GroupByKey、ReduceByKey、Union、Join、Cogroup、MapValues、Sort、和PartionBy等多种操作类型，行动操作包括Collect、Reduce、Lookup和Save等操作类型。另外，各个处理节点之间的通信模型不再像Hadoop只有Shuffle一种模式，用户可以命名、物化、控制中间结果的存储、分区等</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Spark生态系统"><a href="#Spark生态系统" class="headerlink" title="Spark生态系统"></a>Spark生态系统</h1><hr>
+<blockquote>
 <p>注：以下说的组件均为重要内容，只做简单介绍，后面会一一整理专门的文档！</p>
 </blockquote>
 <h2 id="Spark-Core"><a href="#Spark-Core" class="headerlink" title="Spark Core"></a>Spark Core</h2><ul>
 <li><p>Spark Core提供了多种运行模式，不仅可以使用自身运行模式处理任务，如本地模式、Standalone，而且可以使用第三方资源调度框架来处理任务，如Yarn、Mesos等。相比较而言，第三方资源调度框架能够更细粒度管理资源</p>
 </li>
-<li><p>Spark Core提供了有向无环图（DAG）的分布式并行计算框架，并提供内存机制来支持多次迭代计算或者数据共享，大大减少迭代计算之间读取数据的开销，这对于需要进行多次迭代的数据挖掘和分析性能有着极大的提升。另外，在任务处理过程中移动计算而非移动数据，RDD Partition可以就近读取分布式文件系统中的数据到各个节点内存中进行计算</p>
+<li><p>Spark Core提供了<code>有向无环图（DAG）</code>的分布式并行计算框架，并提供内存机制来支持多次迭代计算或者数据共享，大大减少迭代计算之间读取数据的开销，这对于需要进行多次迭代的数据挖掘和分析性能有着极大的提升。另外，在任务处理过程中移动计算而非移动数据，RDD Partition可以就近读取分布式文件系统中的数据到各个节点内存中进行计算</p>
 </li>
-<li><p>在Spark中引入了RDD的抽象，它是分布在一组几点钟的只读对象结婚，这些集合时弹性的，如果数据集一部分丢失，则可以根据“血统”对它们进行重建，保证了数据的高容错性</p>
+<li><p>在Spark中引入了<code>RDD</code>的抽象，它是分布在一组几点钟的只读对象结婚，这些集合时弹性的，如果数据集一部分丢失，则可以根据“血统”对它们进行重建，保证了数据的高容错性</p>
 </li>
 </ul>
 <h2 id="Spark-Streaming"><a href="#Spark-Streaming" class="headerlink" title="Spark Streaming"></a>Spark Streaming</h2><ul>
@@ -642,23 +666,21 @@
   <entry>
     <title>Spark学习文档-核心原理</title>
     <url>/2020/12/26/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h1 id="消息通信原理"><a href="#消息通信原理" class="headerlink" title="消息通信原理"></a>消息通信原理</h1><h1 id="作业执行原理"><a href="#作业执行原理" class="headerlink" title="作业执行原理"></a>作业执行原理</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="1-Application"><a href="#1-Application" class="headerlink" title="1. Application"></a>1. Application</h3><pre><code>表示本次运次的应用程序</code></pre>
-<h3 id="2-Driver"><a href="#2-Driver" class="headerlink" title="2. Driver"></a>2. Driver</h3><pre><code>表示main()函数，创建SparkContext。由SparkContext负责与CLusterManager通信，进行资源的申请、任务的分配和监控等。程序执行完毕后关闭SparkContext</code></pre>
+    <content><![CDATA[<h1 id="消息通信原理"><a href="#消息通信原理" class="headerlink" title="消息通信原理"></a>消息通信原理</h1><hr>
+<h1 id="作业执行原理"><a href="#作业执行原理" class="headerlink" title="作业执行原理"></a>作业执行原理</h1><hr>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="1-Application"><a href="#1-Application" class="headerlink" title="1. Application"></a>1. Application</h3><p>表示本次运次的应用程序</p>
+<h3 id="2-Driver"><a href="#2-Driver" class="headerlink" title="2. Driver"></a>2. Driver</h3><p>表示main()函数，创建SparkContext。由SparkContext负责与CLusterManager通信，进行资源的申请、任务的分配和监控等。程序执行完毕后关闭SparkContext</p>
 <a id="more"></a>
 
-<h3 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3. Executor"></a>3. Executor</h3><pre><code>某个Application运行在Worker节点上的一个进程，该进程负责运行某些Task，负责将数据存在内存或者磁盘上。在Spark On Yarn模式下，其进程名称为CoarseGrainedExecutorBackend，一个CoarseGrainedExecutorBackend能运行Task的数据就取决于分配给它的CPU的个数</code></pre>
-<h3 id="4-Worker"><a href="#4-Worker" class="headerlink" title="4. Worker"></a>4. Worker</h3><pre><code>集群中可以运行Application的节点。在Standalone模式中指的是通过slave文件配置的worker节点，在Spark On Yarn模式中指的就是NodeManager节点</code></pre>
-<h3 id="5-Task"><a href="#5-Task" class="headerlink" title="5. Task"></a>5. Task</h3><pre><code>在Executor进程中执行任务的工作单元，多个Task组成一个Stage</code></pre>
-<h3 id="6-Job"><a href="#6-Job" class="headerlink" title="6. Job"></a>6. Job</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">包含多个Task组成的并行计算，是有行动算子触发的</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-Stage"><a href="#7-Stage" class="headerlink" title="7. Stage"></a>7. Stage</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">每个Job会被拆分成很多组Task，作为一个TaskSet，其名称为Stage</span><br></pre></td></tr></table></figure>
-
-<h3 id="8-DAGScheduler"><a href="#8-DAGScheduler" class="headerlink" title="8. DAGScheduler"></a>8. DAGScheduler</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">根据Job构建基于Stage的DAG，并提交Stage给TaskScheduler，其划分Stage的依据是RDD之间的依赖关系</span><br></pre></td></tr></table></figure>
-
-<h3 id="9-TaskScheduler"><a href="#9-TaskScheduler" class="headerlink" title="9. TaskScheduler"></a>9. TaskScheduler</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">将TaskSet提交给Worker（集群）运行，每个Executor运行什么Task就是在此处分配的</span><br></pre></td></tr></table></figure>
-
+<h3 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3. Executor"></a>3. Executor</h3><p>某个Application运行在Worker节点上的一个进程，该进程负责运行某些Task，负责将数据存在内存或者磁盘上。在Spark On Yarn模式下，其进程名称为CoarseGrainedExecutorBackend，一个CoarseGrainedExecutorBackend能运行Task的数据就取决于分配给它的CPU的个数</p>
+<h3 id="4-Worker"><a href="#4-Worker" class="headerlink" title="4. Worker"></a>4. Worker</h3><p>集群中可以运行Application的节点。在Standalone模式中指的是通过slave文件配置的worker节点，在Spark On Yarn模式中指的就是NodeManager节点</p>
+<h3 id="5-Task"><a href="#5-Task" class="headerlink" title="5. Task"></a>5. Task</h3><p>在Executor进程中执行任务的工作单元，多个Task组成一个Stage</p>
+<h3 id="6-Job"><a href="#6-Job" class="headerlink" title="6. Job"></a>6. Job</h3><p>包含多个Task组成的并行计算，是有行动算子触发的</p>
+<h3 id="7-Stage"><a href="#7-Stage" class="headerlink" title="7. Stage"></a>7. Stage</h3><p>每个Job会被拆分成很多组Task，作为一个TaskSet，其名称为Stage</p>
+<h3 id="8-DAGScheduler"><a href="#8-DAGScheduler" class="headerlink" title="8. DAGScheduler"></a>8. DAGScheduler</h3><p>根据Job构建基于Stage的DAG，并提交Stage给TaskScheduler，其划分Stage的依据是RDD之间的依赖关系</p>
+<h3 id="9-TaskScheduler"><a href="#9-TaskScheduler" class="headerlink" title="9. TaskScheduler"></a>9. TaskScheduler</h3><p>将TaskSet提交给Worker（集群）运行，每个Executor运行什么Task就是在此处分配的</p>
 <blockquote>
-<p>注：<br>  有关Application、Driver、Job、Stage、Task之间的关系如下图所示：</p>
+<p>注：有关Application、Driver、Job、Stage、Task之间的关系如下图所示：</p>
 </blockquote>
 <h2 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h2><h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><h3 id="文字说明"><a href="#文字说明" class="headerlink" title="文字说明"></a>文字说明</h3><ol>
 <li><p>构建SparkApplication的运行环境（启动SparkContext），SparkContext向资源管理器（Standalone、Mesos或者Yarn）注册并申请运行Executor资源</p>
@@ -672,7 +694,10 @@
 <li><p>Task在Executor上运行，运行完毕释放所有资源</p>
 </li>
 </ol>
-<h1 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h1><h1 id="容错及HA"><a href="#容错及HA" class="headerlink" title="容错及HA"></a>容错及HA</h1><h1 id="监控管理"><a href="#监控管理" class="headerlink" title="监控管理"></a>监控管理</h1>]]></content>
+<h1 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h1><hr>
+<h1 id="容错及HA"><a href="#容错及HA" class="headerlink" title="容错及HA"></a>容错及HA</h1><hr>
+<h1 id="监控管理"><a href="#监控管理" class="headerlink" title="监控管理"></a>监控管理</h1><hr>
+]]></content>
       <categories>
         <category>BigData</category>
         <category>Spark</category>
@@ -684,28 +709,19 @@
   <entry>
     <title>Spark学习文档-运行流程</title>
     <url>/2020/12/27/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="1-Application"><a href="#1-Application" class="headerlink" title="1. Application"></a>1. Application</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表示本次运次的应用程序</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-Driver"><a href="#2-Driver" class="headerlink" title="2. Driver"></a>2. Driver</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表示main()函数，创建SparkContext。由SparkContext负责与CLusterManager通信，进行资源的申请、任务的分配和监控等。程序执行完毕后关闭SparkContext</span><br></pre></td></tr></table></figure>
-
+    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="1-Application"><a href="#1-Application" class="headerlink" title="1. Application"></a>1. Application</h2><p>表示本次运次的应用程序</p>
+<h2 id="2-Driver"><a href="#2-Driver" class="headerlink" title="2. Driver"></a>2. Driver</h2><p>表示main()函数，创建SparkContext。由SparkContext负责与CLusterManager通信，进行资源的申请、任务的分配和监控等。程序执行完毕后关闭SparkContext</p>
 <a id="more"></a>
 
-<h2 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3. Executor"></a>3. Executor</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">某个Application运行在Worker节点上的一个进程，该进程负责运行某些Task，负责将数据存在内存或者磁盘上。在Spark On Yarn模式下，其进程名称为CoarseGrainedExecutorBackend，一个CoarseGrainedExecutorBackend能运行Task的数据就取决于分配给它的CPU的个数</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-Worker"><a href="#4-Worker" class="headerlink" title="4. Worker"></a>4. Worker</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">集群中可以运行Application的节点。在Standalone模式中指的是通过slave文件配置的worker节点，在Spark On Yarn模式中指的就是NodeManager节点</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-Task"><a href="#5-Task" class="headerlink" title="5. Task"></a>5. Task</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在Executor进程中执行任务的工作单元，多个Task组成一个Stage</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-Job"><a href="#6-Job" class="headerlink" title="6. Job"></a>6. Job</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">包含多个Task组成的并行计算，是有行动算子触发的</span><br></pre></td></tr></table></figure>
-
-<h2 id="7-Stage"><a href="#7-Stage" class="headerlink" title="7. Stage"></a>7. Stage</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">每个Job会被拆分成很多组Task，作为一个TaskSet，其名称为Stage</span><br></pre></td></tr></table></figure>
-
-<h2 id="8-DAGScheduler"><a href="#8-DAGScheduler" class="headerlink" title="8. DAGScheduler"></a>8. DAGScheduler</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">根据Job构建基于Stage的DAG，并提交Stage给TaskScheduler，其划分Stage的依据是RDD之间的依赖关系</span><br></pre></td></tr></table></figure>
-
-<h2 id="9-TaskScheduler"><a href="#9-TaskScheduler" class="headerlink" title="9. TaskScheduler"></a>9. TaskScheduler</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">将TaskSet提交给Worker（集群）运行，每个Executor运行什么Task就是在此处分配的</span><br></pre></td></tr></table></figure>
-
+<h2 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3. Executor"></a>3. Executor</h2><p>某个Application运行在Worker节点上的一个进程，该进程负责运行某些Task，负责将数据存在内存或者磁盘上。在Spark On Yarn模式下，其进程名称为CoarseGrainedExecutorBackend，一个CoarseGrainedExecutorBackend能运行Task的数据就取决于分配给它的CPU的个数</p>
+<h2 id="4-Worker"><a href="#4-Worker" class="headerlink" title="4. Worker"></a>4. Worker</h2><p>集群中可以运行Application的节点。在Standalone模式中指的是通过slave文件配置的worker节点，在Spark On Yarn模式中指的就是NodeManager节点</p>
+<h2 id="5-Task"><a href="#5-Task" class="headerlink" title="5. Task"></a>5. Task</h2><p>在Executor进程中执行任务的工作单元，多个Task组成一个Stage</p>
+<h2 id="6-Job"><a href="#6-Job" class="headerlink" title="6. Job"></a>6. Job</h2><p>包含多个Task组成的并行计算，是有行动算子触发的</p>
+<h2 id="7-Stage"><a href="#7-Stage" class="headerlink" title="7. Stage"></a>7. Stage</h2><p>每个Job会被拆分成很多组Task，作为一个TaskSet，其名称为Stage</p>
+<h2 id="8-DAGScheduler"><a href="#8-DAGScheduler" class="headerlink" title="8. DAGScheduler"></a>8. DAGScheduler</h2><p>根据Job构建基于Stage的DAG，并提交Stage给TaskScheduler，其划分Stage的依据是RDD之间的依赖关系</p>
+<h2 id="9-TaskScheduler"><a href="#9-TaskScheduler" class="headerlink" title="9. TaskScheduler"></a>9. TaskScheduler</h2><p>将TaskSet提交给Worker（集群）运行，每个Executor运行什么Task就是在此处分配的</p>
 <blockquote>
-<p>注：<br>  有关Application、Driver、Job、Stage、Task之间的关系如下图所示：</p>
+<p>注： 有关Application、Driver、Job、Stage、Task之间的关系如下图所示：</p>
 </blockquote>
 <h1 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h1><h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><h2 id="文字说明"><a href="#文字说明" class="headerlink" title="文字说明"></a>文字说明</h2><ol>
 <li><p>构建SparkApplication的运行环境（启动SparkContext），SparkContext向资源管理器（Standalone、Mesos或者Yarn）注册并申请运行Executor资源</p>
@@ -766,10 +782,12 @@
   <entry>
     <title>初识Linux</title>
     <url>/2020/06/12/%E5%88%9D%E8%AF%86Linux/</url>
-    <content><![CDATA[<h2 id="操作系统发展史"><a href="#操作系统发展史" class="headerlink" title="操作系统发展史"></a>操作系统发展史</h2><p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8F%91%E5%B1%95%E5%8F%B2.png?raw=true"></p>
+    <content><![CDATA[<h2 id="操作系统发展史"><a href="#操作系统发展史" class="headerlink" title="操作系统发展史"></a>操作系统发展史</h2><hr>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8F%91%E5%B1%95%E5%8F%B2.png?raw=true"></p>
 <a id="more"></a>
 
-<h2 id="计算机"><a href="#计算机" class="headerlink" title="计算机"></a>计算机</h2><h3 id="按照粗粒度划分可以分为三大部分："><a href="#按照粗粒度划分可以分为三大部分：" class="headerlink" title="按照粗粒度划分可以分为三大部分："></a>按照粗粒度划分可以分为三大部分：</h3><h4 id="1-输入部分"><a href="#1-输入部分" class="headerlink" title="1. 输入部分"></a>1. 输入部分</h4><ul>
+<h2 id="计算机"><a href="#计算机" class="headerlink" title="计算机"></a>计算机</h2><hr>
+<h3 id="按照粗粒度划分可以分为三大部分："><a href="#按照粗粒度划分可以分为三大部分：" class="headerlink" title="按照粗粒度划分可以分为三大部分："></a>按照粗粒度划分可以分为三大部分：</h3><h4 id="1-输入部分"><a href="#1-输入部分" class="headerlink" title="1. 输入部分"></a>1. 输入部分</h4><ul>
 <li>键盘</li>
 <li>鼠标</li>
 <li>手写板</li>
@@ -788,7 +806,8 @@
 <li>逻辑计算单元<h4 id="4-控制器"><a href="#4-控制器" class="headerlink" title="4. 控制器"></a>4. 控制器</h4></li>
 <li>控制单元<h4 id="5-存储器"><a href="#5-存储器" class="headerlink" title="5. 存储器"></a>5. 存储器</h4></li>
 </ul>
-<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="1-含义："><a href="#1-含义：" class="headerlink" title="1. 含义："></a>1. 含义：</h3><ul>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><hr>
+<h3 id="1-含义："><a href="#1-含义：" class="headerlink" title="1. 含义："></a>1. 含义：</h3><ul>
 <li>操作系统（Operating System，简称OS）是管理和控制计算机硬件与软件资源的计算机程序，是直接运行  在“裸机”上的最基本的系统软件，任何其他软件都必须在操作系统的支持下才能运行。</li>
 </ul>
 <h3 id="2-存在的意义："><a href="#2-存在的意义：" class="headerlink" title="2. 存在的意义："></a>2. 存在的意义：</h3><ul>
@@ -800,7 +819,8 @@
 <li>提供程序设计师更容易开发软件的环境</li>
 </ul>
 <p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.png?raw=true"></p>
-<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="1-含义：-1"><a href="#1-含义：-1" class="headerlink" title="1. 含义："></a>1. 含义：</h3><ul>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><hr>
+<h3 id="1-含义：-1"><a href="#1-含义：-1" class="headerlink" title="1. 含义："></a>1. 含义：</h3><ul>
 <li>Linux 内核最初只是由芬兰人林纳斯·托瓦兹（Linus Torvalds）在赫尔辛基大学上学时出于个人爱好而编写的。</li>
 <li>Linux 是一套免费使用和自由传播的类 Unix 操作系统，是一个基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多 CPU 的操作系统。</li>
 <li>Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它支持 32 位和 64 位硬件。Linux 继承了 Unix 以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。</li>
