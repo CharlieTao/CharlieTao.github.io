@@ -607,13 +607,13 @@
 <ul>
 <li>/usr的子目录建议：</li>
 </ul>
-<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS_%E6%A0%B9%E7%9B%AE%E5%BD%953.png%EF%BC%9Fraw=true" alt="图7"></p>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS_%E6%A0%B9%E7%9B%AE%E5%BD%953.png?raw=true" alt="图7"></p>
 </li>
 <li><p>/var</p>
 <ul>
 <li>/var的意义与内容</li>
 </ul>
-<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS_4.png%EF%BC%9Fraw=true" alt="图8"></p>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS_4.png?raw=true" alt="图8"></p>
 </li>
 </ul>
 <h3 id="3-3-目录树"><a href="#3-3-目录树" class="headerlink" title="3.3 目录树"></a>3.3 目录树</h3><ul>
