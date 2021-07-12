@@ -429,7 +429,7 @@
   <entry>
     <title>Linux学习文档-文件权限与目录配置</title>
     <url>/2021/04/22/Linux%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%E4%B8%8E%E7%9B%AE%E5%BD%95%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h2 id="1-文件属性"><a href="#1-文件属性" class="headerlink" title="1. 文件属性"></a>1. 文件属性</h2><p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图一"></p>
+    <content><![CDATA[<h2 id="1-文件属性"><a href="#1-文件属性" class="headerlink" title="1. 文件属性"></a>1. 文件属性</h2><p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图1"></p>
 <a id="more"></a> 
 
 <ul>
@@ -581,13 +581,13 @@
 <li><p>具体表现：FHS依据文件系统使用的频繁与否、是否允许用户随意修改而将目录定义为四种交互作用的形态，如下图所示：<img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS.png?raw=true" alt="图4"></p>
 </li>
 <li><p>名词解释：</p>
-</li>
-</ul>
 <ul>
-<li><strong>可分享</strong>：可以分享给其他系统挂载使用的目录，所以包含执行文件与用户的邮件等数据，是能够分享给网络上其他主机挂载使用的目录</li>
+<li>可分享：可以分享给其他系统挂载使用的目录，所以包含执行文件与用户的邮件等数据，是能够分享给网络上其他主机挂载使用的目录</li>
 <li><strong>不可分享</strong>：自己机器上运行的设备文件或是与程序有关的socket文件等，由于仅与自身及其有关，所以不适合分享给其他主机</li>
 <li><strong>不变</strong>：有些数据是不会经常变动的，跟随者发行版而不变动，例如函数库、文件说明、系统管理员所管理的主机服务配置文件等</li>
 <li><strong>可变动</strong>：经常修改的数据，例如日志文件、一般用户可自行接受的新闻组等</li>
+</ul>
+</li>
 </ul>
 <h3 id="3-2-三大目录"><a href="#3-2-三大目录" class="headerlink" title="3.2 三大目录"></a>3.2 三大目录</h3><p>事实上，FHS针对目录树架构仅定义出以下<strong>三层目录</strong>下面应该放置什么样的数据而已</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/（root，根目录）：与启动系统、还原、系统修复有关</span><br><span class="line"></span><br><span class="line">/usr（Unix software resource）：与软件安装、执行有关</span><br><span class="line"></span><br><span class="line">/var（variable）：与系统运行过程有关</span><br></pre></td></tr></table></figure>
