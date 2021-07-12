@@ -571,7 +571,62 @@
 <ul>
 <li>例3：当我想要将全部人的可执行权限去掉而不修改其他已存在的权限时，可执行如下命令：</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chmod a-x .bashrc</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chmod a-x .bashrc</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-Linux目录配置"><a href="#3-Linux目录配置" class="headerlink" title="3. Linux目录配置"></a>3. Linux目录配置</h2><h3 id="3-1-Linux目录配置的依据——FHS"><a href="#3-1-Linux目录配置的依据——FHS" class="headerlink" title="3.1 Linux目录配置的依据——FHS"></a>3.1 Linux目录配置的依据——FHS</h3><ul>
+<li><p>主要目的：让用户可以了解到已安装软件通常放置在哪个目下，也就是说重在在于规范每个特定的目录下应该要放置什么样子的数据</p>
+</li>
+<li><p>具体表现：FHS依据文件系统使用的频繁与否、是否允许用户随意修改而将目录定义为四种交互作用的形态，如下图所示：<img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS.png?raw=true" alt="图4"></p>
+</li>
+<li><p>名词解释：</p>
+</li>
+</ul>
+<ul>
+<li><strong>可分享</strong>：可以分享给其他系统挂载使用的目录，所以包含执行文件与用户的邮件等数据，是能够分享给网络上其他主机挂载使用的目录</li>
+<li><strong>不可分享</strong>：自己机器上运行的设备文件或是与程序有关的socket文件等，由于仅与自身及其有关，所以不适合分享给其他主机</li>
+<li><strong>不变</strong>：有些数据是不会经常变动的，跟随者发行版而不变动，例如函数库、文件说明、系统管理员所管理的主机服务配置文件等</li>
+<li><strong>可变动</strong>：经常修改的数据，例如日志文件、一般用户可自行接受的新闻组等</li>
+</ul>
+<h3 id="3-2-三大目录"><a href="#3-2-三大目录" class="headerlink" title="3.2 三大目录"></a>3.2 三大目录</h3><p>事实上，FHS针对目录树架构仅定义出以下<strong>三层目录</strong>下面应该放置什么样的数据而已</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/（root，根目录）：与启动系统、还原、系统修复有关</span><br><span class="line"></span><br><span class="line">/usr（Unix software resource）：与软件安装、执行有关</span><br><span class="line"></span><br><span class="line">/var（variable）：与系统运行过程有关</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>根目录（/）</p>
+<ul>
+<li>根目录(/)的子目录建议：</li>
+</ul>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS_%E6%A0%B9%E7%9B%AE%E5%BD%95.png?raw=true" alt="图5"></p>
+<ul>
+<li>除上 FHS 中定义的目录说明外, 底下是几个在Linux当中非常重要的目录：</li>
+</ul>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS_%E6%A0%B9%E7%9B%AE%E5%BD%952.png?raw=true" alt="图6"></p>
+</li>
+<li><p>/usr</p>
+<ul>
+<li>/usr的子目录建议：</li>
+</ul>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS_%E6%A0%B9%E7%9B%AE%E5%BD%953.png%EF%BC%9Fraw=true" alt="图7"></p>
+</li>
+<li><p>/var</p>
+<ul>
+<li>/var的意义与内容</li>
+</ul>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/FHS_4.png%EF%BC%9Fraw=true" alt="图8"></p>
+</li>
+</ul>
+<h3 id="3-3-目录树"><a href="#3-3-目录树" class="headerlink" title="3.3 目录树"></a>3.3 目录树</h3><ul>
+<li>特性：<ul>
+<li>目录树的起始点为/（根目录）</li>
+<li>每一个目录不止能使用本地分区的文件系统，也可以使用网络上的文件系统。比如，可以利用Network File System（NFS）服务器挂载某特定目录等</li>
+<li>每一个文件在此目录树中的文件名（包含完整路径）都是独一无二的</li>
+</ul>
+</li>
+<li>目录树架构示意图</li>
+</ul>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/%E7%9B%AE%E5%BD%95%E6%A0%91%E6%9E%B6%E6%9E%84%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图9"></p>
+]]></content>
       <categories>
         <category>Linux</category>
         <category>文件、目录与磁盘</category>
