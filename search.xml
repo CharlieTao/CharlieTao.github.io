@@ -47,6 +47,48 @@
       </tags>
   </entry>
   <entry>
+    <title>CnetOS更换镜像</title>
+    <url>/2020/06/13/CentOS%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
+<blockquote>
+<p>由于新建虚拟机时，使用系统自带的CentOS镜像在使用yum命令下载各种软件的速度不太理想，因此本文用于记录更换原始镜像为国内镜像的步骤。以下是服务器信息：</p>
+<ol>
+<li>环境：自建虚拟机</li>
+<li>系统：CentOS 7</li>
+<li>镜像：阿里云</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><hr>
+<h2 id="安装wget-curl"><a href="#安装wget-curl" class="headerlink" title="安装wget/curl"></a>安装wget/curl</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">yum -y install curl</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><hr>
+<h2 id="1-备份原本的镜像"><a href="#1-备份原本的镜像" class="headerlink" title="1. 备份原本的镜像"></a>1. 备份原本的镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-下载镜像并写入指定文件中"><a href="#2-下载镜像并写入指定文件中" class="headerlink" title="2. 下载镜像并写入指定文件中"></a>2. 下载镜像并写入指定文件中</h2><ul>
+<li>以下两种方式均可下载目标镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#使用Wget命令</span></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用curl命令</span></span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>尖叫提示</code>：-o后面路径+指定文件名，作用是将目标镜像中的内容写到指定目录的指定文件中</p>
+</blockquote>
+<h2 id="3-更新镜像源"><a href="#3-更新镜像源" class="headerlink" title="3. 更新镜像源"></a>3. 更新镜像源</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#清除缓存</span></span><br><span class="line">yum clean all</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成缓存</span></span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>尖叫提示</code>：网上有一篇博客说要将跟换后的CentOS-Base.repo中的所有http开头的更改为https，作用暂时未知（可能网络安全），后续了解后，会进一步补充。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Flume-1.9.0安装文档</title>
     <url>/2020/06/05/Flume-1-9-0%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/</url>
     <content><![CDATA[<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><h2 id="JDK的安装"><a href="#JDK的安装" class="headerlink" title="JDK的安装"></a>JDK的安装</h2><blockquote>
@@ -133,48 +175,6 @@
       </categories>
       <tags>
         <tag>Flume</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CnetOS更换镜像</title>
-    <url>/2020/06/13/CentOS%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
-<blockquote>
-<p>由于新建虚拟机时，使用系统自带的CentOS镜像在使用yum命令下载各种软件的速度不太理想，因此本文用于记录更换原始镜像为国内镜像的步骤。以下是服务器信息：</p>
-<ol>
-<li>环境：自建虚拟机</li>
-<li>系统：CentOS 7</li>
-<li>镜像：阿里云</li>
-</ol>
-</blockquote>
-<a id="more"></a>
-
-<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><hr>
-<h2 id="安装wget-curl"><a href="#安装wget-curl" class="headerlink" title="安装wget/curl"></a>安装wget/curl</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">yum -y install curl</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><hr>
-<h2 id="1-备份原本的镜像"><a href="#1-备份原本的镜像" class="headerlink" title="1. 备份原本的镜像"></a>1. 备份原本的镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-下载镜像并写入指定文件中"><a href="#2-下载镜像并写入指定文件中" class="headerlink" title="2. 下载镜像并写入指定文件中"></a>2. 下载镜像并写入指定文件中</h2><ul>
-<li>以下两种方式均可下载目标镜像</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#使用Wget命令</span></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用curl命令</span></span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><code>尖叫提示</code>：-o后面路径+指定文件名，作用是将目标镜像中的内容写到指定目录的指定文件中</p>
-</blockquote>
-<h2 id="3-更新镜像源"><a href="#3-更新镜像源" class="headerlink" title="3. 更新镜像源"></a>3. 更新镜像源</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#清除缓存</span></span><br><span class="line">yum clean all</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成缓存</span></span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><code>尖叫提示</code>：网上有一篇博客说要将跟换后的CentOS-Base.repo中的所有http开头的更改为https，作用暂时未知（可能网络安全），后续了解后，会进一步补充。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
       </tags>
   </entry>
   <entry>
@@ -427,87 +427,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Scala学习文档-容器</title>
-    <url>/2020/06/05/Scala%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E5%AE%B9%E5%99%A8/</url>
-    <content><![CDATA[<h1 id="Collection-（容器）"><a href="#Collection-（容器）" class="headerlink" title="Collection （容器）"></a>Collection （容器）</h1><ul>
-<li><p>根据中元素的<code>组织方式</code>和<code>操作方式</code>，Scala中的容器Collection可以分为有序和无序容器、可变和不可变等不同的容器类别。</p>
-</li>
-<li><p>Scala用了三个包来组成容器类：</p>
-<ul>
-<li><p><strong>scala.collection</strong></p>
-</li>
-<li><p><strong>scala.collection.mutable</strong></p>
-<p>包含了所有<code>可变</code>的容器（例：可变集合、可变映射）</p>
-</li>
-<li><p><strong>scala.collection.immutable</strong></p>
-<p>包含了所有<code>不可变</code>的容器（可变集合、可变映射）</p>
-</li>
-</ul>
-</li>
-</ul>
-<a id="more"></a>
-
-<ul>
-<li><p>组织关系图</p>
-<ul>
-<li><p>下图显示了scala.collection包中所有的容器类。</p>
-<blockquote>
-<p>这些都是<code>高级抽象类</code>或<code>特质</code>。例如，所有容器的基本特质（trait）是Traverable特质。它为所有的容器定义了公用的foreach方法，用于对容器元素进行遍历操作</p>
-</blockquote>
-<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.png?raw=true"></p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>下图显示了scala.collection.immutable（<code>不可变</code>）包中所有的容器类</p>
-<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.immutable.png?raw=true"></p>
-</li>
-</ul>
-<ul>
-<li><p>下图显示了scala.collection.mutable（<code>可变</code>）中的所有容器类</p>
-<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.mutable.png?raw=true"></p>
-</li>
-</ul>
-<h2 id="1-列表（List）"><a href="#1-列表（List）" class="headerlink" title="1. 列表（List）"></a>1. 列表（List）</h2><hr>
-<p>列表是一种共享相同类型的<code>不可变</code>的对象序列，Scala的List定义在scala.collection.immutable包中</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> strList = <span class="type">List</span>(<span class="string">&quot;Bigdata&quot;</span>, <span class="string">&quot;Hadoop&quot;</span>, <span class="string">&quot;Spark&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注：</p>
-<ol>
-<li>不同于Java的java.util.List，scala的List一旦被定义其值就不能改变了，因此声明List时必须初始化！</li>
-<li>这里用var声明不是说声明的List类型的strList是可变的，而是指向是可变的</li>
-</ol>
-</blockquote>
-<p>基本知识：</p>
-<ul>
-<li><p>列表有头部和尾部的概念，可以分别使用head和tail方法来获取</p>
-</li>
-<li><p>head返回的是列表第一个元素的值</p>
-</li>
-<li><p>tail返回的是除第一个元素外的其他值构成的新列表（这里体现出列表具有<code>递归</code>的<code>链表结构</code>）</p>
-</li>
-</ul>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> strList = <span class="type">List</span>(<span class="string">&quot;Bigdata&quot;</span>, <span class="string">&quot;Hadoop&quot;</span>, <span class="string">&quot;Spark&quot;</span>)</span><br><span class="line"></span><br><span class="line">#下面表达式返回“<span class="type">Bigdata</span>”</span><br><span class="line"><span class="keyword">var</span> str = strList.head</span><br><span class="line"></span><br><span class="line">#下面表达式返回<span class="type">List</span>(“<span class="type">Hadoop</span>”, <span class="string">&quot;Spark&quot;</span>)</span><br><span class="line"><span class="keyword">val</span> list = strList.tail</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="2-集合（Set）"><a href="#2-集合（Set）" class="headerlink" title="2. 集合（Set）"></a>2. 集合（Set）</h2><hr>
-<h2 id="3-映射（Map）"><a href="#3-映射（Map）" class="headerlink" title="3. 映射（Map）"></a>3. 映射（Map）</h2><hr>
-<h2 id="4-迭代器（Iterator）"><a href="#4-迭代器（Iterator）" class="headerlink" title="4. 迭代器（Iterator）"></a>4. 迭代器（Iterator）</h2><hr>
-<h2 id="5-数组（Array）"><a href="#5-数组（Array）" class="headerlink" title="5. 数组（Array）"></a>5. 数组（Array）</h2><hr>
-<h2 id="6-元组（Tuple）"><a href="#6-元组（Tuple）" class="headerlink" title="6. 元组（Tuple）"></a>6. 元组（Tuple）</h2><hr>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-        <category>Scala</category>
-      </categories>
-      <tags>
-        <tag>Scala</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux学习文档-文件权限与目录配置</title>
     <url>/2021/04/22/Linux%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%E4%B8%8E%E7%9B%AE%E5%BD%95%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="1-文件属性"><a href="#1-文件属性" class="headerlink" title="1. 文件属性"></a>1. 文件属性</h2><p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Linux/%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图一"></p>
@@ -717,6 +636,87 @@
       </tags>
   </entry>
   <entry>
+    <title>Scala学习文档-容器</title>
+    <url>/2020/06/05/Scala%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<h1 id="Collection-（容器）"><a href="#Collection-（容器）" class="headerlink" title="Collection （容器）"></a>Collection （容器）</h1><ul>
+<li><p>根据中元素的<code>组织方式</code>和<code>操作方式</code>，Scala中的容器Collection可以分为有序和无序容器、可变和不可变等不同的容器类别。</p>
+</li>
+<li><p>Scala用了三个包来组成容器类：</p>
+<ul>
+<li><p><strong>scala.collection</strong></p>
+</li>
+<li><p><strong>scala.collection.mutable</strong></p>
+<p>包含了所有<code>可变</code>的容器（例：可变集合、可变映射）</p>
+</li>
+<li><p><strong>scala.collection.immutable</strong></p>
+<p>包含了所有<code>不可变</code>的容器（可变集合、可变映射）</p>
+</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li><p>组织关系图</p>
+<ul>
+<li><p>下图显示了scala.collection包中所有的容器类。</p>
+<blockquote>
+<p>这些都是<code>高级抽象类</code>或<code>特质</code>。例如，所有容器的基本特质（trait）是Traverable特质。它为所有的容器定义了公用的foreach方法，用于对容器元素进行遍历操作</p>
+</blockquote>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.png?raw=true"></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>下图显示了scala.collection.immutable（<code>不可变</code>）包中所有的容器类</p>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.immutable.png?raw=true"></p>
+</li>
+</ul>
+<ul>
+<li><p>下图显示了scala.collection.mutable（<code>可变</code>）中的所有容器类</p>
+<p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Scala/Scala%E5%AE%B9%E5%99%A8/scala.collection.mutable.png?raw=true"></p>
+</li>
+</ul>
+<h2 id="1-列表（List）"><a href="#1-列表（List）" class="headerlink" title="1. 列表（List）"></a>1. 列表（List）</h2><hr>
+<p>列表是一种共享相同类型的<code>不可变</code>的对象序列，Scala的List定义在scala.collection.immutable包中</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> strList = <span class="type">List</span>(<span class="string">&quot;Bigdata&quot;</span>, <span class="string">&quot;Hadoop&quot;</span>, <span class="string">&quot;Spark&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：</p>
+<ol>
+<li>不同于Java的java.util.List，scala的List一旦被定义其值就不能改变了，因此声明List时必须初始化！</li>
+<li>这里用var声明不是说声明的List类型的strList是可变的，而是指向是可变的</li>
+</ol>
+</blockquote>
+<p>基本知识：</p>
+<ul>
+<li><p>列表有头部和尾部的概念，可以分别使用head和tail方法来获取</p>
+</li>
+<li><p>head返回的是列表第一个元素的值</p>
+</li>
+<li><p>tail返回的是除第一个元素外的其他值构成的新列表（这里体现出列表具有<code>递归</code>的<code>链表结构</code>）</p>
+</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> strList = <span class="type">List</span>(<span class="string">&quot;Bigdata&quot;</span>, <span class="string">&quot;Hadoop&quot;</span>, <span class="string">&quot;Spark&quot;</span>)</span><br><span class="line"></span><br><span class="line">#下面表达式返回“<span class="type">Bigdata</span>”</span><br><span class="line"><span class="keyword">var</span> str = strList.head</span><br><span class="line"></span><br><span class="line">#下面表达式返回<span class="type">List</span>(“<span class="type">Hadoop</span>”, <span class="string">&quot;Spark&quot;</span>)</span><br><span class="line"><span class="keyword">val</span> list = strList.tail</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-集合（Set）"><a href="#2-集合（Set）" class="headerlink" title="2. 集合（Set）"></a>2. 集合（Set）</h2><hr>
+<h2 id="3-映射（Map）"><a href="#3-映射（Map）" class="headerlink" title="3. 映射（Map）"></a>3. 映射（Map）</h2><hr>
+<h2 id="4-迭代器（Iterator）"><a href="#4-迭代器（Iterator）" class="headerlink" title="4. 迭代器（Iterator）"></a>4. 迭代器（Iterator）</h2><hr>
+<h2 id="5-数组（Array）"><a href="#5-数组（Array）" class="headerlink" title="5. 数组（Array）"></a>5. 数组（Array）</h2><hr>
+<h2 id="6-元组（Tuple）"><a href="#6-元组（Tuple）" class="headerlink" title="6. 元组（Tuple）"></a>6. 元组（Tuple）</h2><hr>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+        <category>Scala</category>
+      </categories>
+      <tags>
+        <tag>Scala</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spark学习文档-RDD编程</title>
     <url>/2020/12/28/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-RDD%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="RDD简介"><a href="#RDD简介" class="headerlink" title="RDD简介"></a>RDD简介</h1><hr>
@@ -748,49 +748,6 @@
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><hr>
 <h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><hr>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><hr>
-]]></content>
-      <categories>
-        <category>BigData</category>
-        <category>Spark</category>
-      </categories>
-      <tags>
-        <tag>Spark</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spark学习文档-核心原理</title>
-    <url>/2020/12/26/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h1 id="消息通信原理"><a href="#消息通信原理" class="headerlink" title="消息通信原理"></a>消息通信原理</h1><hr>
-<h1 id="作业执行原理"><a href="#作业执行原理" class="headerlink" title="作业执行原理"></a>作业执行原理</h1><hr>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="1-Application"><a href="#1-Application" class="headerlink" title="1. Application"></a>1. Application</h3><p>表示本次运次的应用程序</p>
-<h3 id="2-Driver"><a href="#2-Driver" class="headerlink" title="2. Driver"></a>2. Driver</h3><p>表示main()函数，创建SparkContext。由SparkContext负责与CLusterManager通信，进行资源的申请、任务的分配和监控等。程序执行完毕后关闭SparkContext</p>
-<a id="more"></a>
-
-<h3 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3. Executor"></a>3. Executor</h3><p>某个Application运行在Worker节点上的一个进程，该进程负责运行某些Task，负责将数据存在内存或者磁盘上。在Spark On Yarn模式下，其进程名称为CoarseGrainedExecutorBackend，一个CoarseGrainedExecutorBackend能运行Task的数据就取决于分配给它的CPU的个数</p>
-<h3 id="4-Worker"><a href="#4-Worker" class="headerlink" title="4. Worker"></a>4. Worker</h3><p>集群中可以运行Application的节点。在Standalone模式中指的是通过slave文件配置的worker节点，在Spark On Yarn模式中指的就是NodeManager节点</p>
-<h3 id="5-Task"><a href="#5-Task" class="headerlink" title="5. Task"></a>5. Task</h3><p>在Executor进程中执行任务的工作单元，多个Task组成一个Stage</p>
-<h3 id="6-Job"><a href="#6-Job" class="headerlink" title="6. Job"></a>6. Job</h3><p>包含多个Task组成的并行计算，是有行动算子触发的</p>
-<h3 id="7-Stage"><a href="#7-Stage" class="headerlink" title="7. Stage"></a>7. Stage</h3><p>每个Job会被拆分成很多组Task，作为一个TaskSet，其名称为Stage</p>
-<h3 id="8-DAGScheduler"><a href="#8-DAGScheduler" class="headerlink" title="8. DAGScheduler"></a>8. DAGScheduler</h3><p>根据Job构建基于Stage的DAG，并提交Stage给TaskScheduler，其划分Stage的依据是RDD之间的依赖关系</p>
-<h3 id="9-TaskScheduler"><a href="#9-TaskScheduler" class="headerlink" title="9. TaskScheduler"></a>9. TaskScheduler</h3><p>将TaskSet提交给Worker（集群）运行，每个Executor运行什么Task就是在此处分配的</p>
-<blockquote>
-<p>注：有关Application、Driver、Job、Stage、Task之间的关系如下图所示：</p>
-</blockquote>
-<h2 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h2><h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><h3 id="文字说明"><a href="#文字说明" class="headerlink" title="文字说明"></a>文字说明</h3><ol>
-<li><p>构建SparkApplication的运行环境（启动SparkContext），SparkContext向资源管理器（Standalone、Mesos或者Yarn）注册并申请运行Executor资源</p>
-</li>
-<li><p>资源管理器分配Executor资源并启动StandaloneExecutorBackend，Executor运行情况将随着心跳发送到资源管理器上</p>
-</li>
-<li><p>SparkContext构成DAG图，将DAG图分解成Stage，并把TaskSet发送给Task Scheduler；Executor向SparkContext申请Task</p>
-</li>
-<li><p>Task Scheduler将Task发放给Executor运行同时SparkContext将应用程序代码发放给Executor</p>
-</li>
-<li><p>Task在Executor上运行，运行完毕释放所有资源</p>
-</li>
-</ol>
-<h1 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h1><hr>
-<h1 id="容错及HA"><a href="#容错及HA" class="headerlink" title="容错及HA"></a>容错及HA</h1><hr>
-<h1 id="监控管理"><a href="#监控管理" class="headerlink" title="监控管理"></a>监控管理</h1><hr>
 ]]></content>
       <categories>
         <category>BigData</category>
@@ -916,38 +873,46 @@
       </tags>
   </entry>
   <entry>
-    <title>初识Hive</title>
-    <url>/2020/06/13/%E5%88%9D%E8%AF%86Hive/</url>
-    <content><![CDATA[<h1 id="什么是Hive？"><a href="#什么是Hive？" class="headerlink" title="什么是Hive？"></a>什么是Hive？</h1><ol>
-<li>由Facebook实现并开源、基于Hadoop的<strong>数据仓库的工具</strong></li>
-<li>提供HQL（Hive SQL）查询功能</li>
-<li>Hive本质上是将SQL<strong>翻译</strong>转换成MapReduce任务执行</li>
-</ol>
+    <title>Spark学习文档-核心原理</title>
+    <url>/2020/12/26/Spark%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h1 id="消息通信原理"><a href="#消息通信原理" class="headerlink" title="消息通信原理"></a>消息通信原理</h1><hr>
+<h1 id="作业执行原理"><a href="#作业执行原理" class="headerlink" title="作业执行原理"></a>作业执行原理</h1><hr>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="1-Application"><a href="#1-Application" class="headerlink" title="1. Application"></a>1. Application</h3><p>表示本次运次的应用程序</p>
+<h3 id="2-Driver"><a href="#2-Driver" class="headerlink" title="2. Driver"></a>2. Driver</h3><p>表示main()函数，创建SparkContext。由SparkContext负责与CLusterManager通信，进行资源的申请、任务的分配和监控等。程序执行完毕后关闭SparkContext</p>
 <a id="more"></a>
 
-<h1 id="为什么使用Hive（MapReduce、Spark）？"><a href="#为什么使用Hive（MapReduce、Spark）？" class="headerlink" title="为什么使用Hive（MapReduce、Spark）？"></a>为什么使用Hive（MapReduce、Spark）？</h1><ol>
-<li>MR在实现复杂逻辑查询的时候，成本高、难度大。</li>
-<li>Spark对集群资源更高（基于内存）</li>
+<h3 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3. Executor"></a>3. Executor</h3><p>某个Application运行在Worker节点上的一个进程，该进程负责运行某些Task，负责将数据存在内存或者磁盘上。在Spark On Yarn模式下，其进程名称为CoarseGrainedExecutorBackend，一个CoarseGrainedExecutorBackend能运行Task的数据就取决于分配给它的CPU的个数</p>
+<h3 id="4-Worker"><a href="#4-Worker" class="headerlink" title="4. Worker"></a>4. Worker</h3><p>集群中可以运行Application的节点。在Standalone模式中指的是通过slave文件配置的worker节点，在Spark On Yarn模式中指的就是NodeManager节点</p>
+<h3 id="5-Task"><a href="#5-Task" class="headerlink" title="5. Task"></a>5. Task</h3><p>在Executor进程中执行任务的工作单元，多个Task组成一个Stage</p>
+<h3 id="6-Job"><a href="#6-Job" class="headerlink" title="6. Job"></a>6. Job</h3><p>包含多个Task组成的并行计算，是有行动算子触发的</p>
+<h3 id="7-Stage"><a href="#7-Stage" class="headerlink" title="7. Stage"></a>7. Stage</h3><p>每个Job会被拆分成很多组Task，作为一个TaskSet，其名称为Stage</p>
+<h3 id="8-DAGScheduler"><a href="#8-DAGScheduler" class="headerlink" title="8. DAGScheduler"></a>8. DAGScheduler</h3><p>根据Job构建基于Stage的DAG，并提交Stage给TaskScheduler，其划分Stage的依据是RDD之间的依赖关系</p>
+<h3 id="9-TaskScheduler"><a href="#9-TaskScheduler" class="headerlink" title="9. TaskScheduler"></a>9. TaskScheduler</h3><p>将TaskSet提交给Worker（集群）运行，每个Executor运行什么Task就是在此处分配的</p>
+<blockquote>
+<p>注：有关Application、Driver、Job、Stage、Task之间的关系如下图所示：</p>
+</blockquote>
+<h2 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h2><h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><h3 id="文字说明"><a href="#文字说明" class="headerlink" title="文字说明"></a>文字说明</h3><ol>
+<li><p>构建SparkApplication的运行环境（启动SparkContext），SparkContext向资源管理器（Standalone、Mesos或者Yarn）注册并申请运行Executor资源</p>
+</li>
+<li><p>资源管理器分配Executor资源并启动StandaloneExecutorBackend，Executor运行情况将随着心跳发送到资源管理器上</p>
+</li>
+<li><p>SparkContext构成DAG图，将DAG图分解成Stage，并把TaskSet发送给Task Scheduler；Executor向SparkContext申请Task</p>
+</li>
+<li><p>Task Scheduler将Task发放给Executor运行同时SparkContext将应用程序代码发放给Executor</p>
+</li>
+<li><p>Task在Executor上运行，运行完毕释放所有资源</p>
+</li>
 </ol>
-<h1 id="Hive内部架构"><a href="#Hive内部架构" class="headerlink" title="Hive内部架构"></a>Hive内部架构</h1><p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Hive/Hive%E5%86%85%E9%83%A8%E6%9E%B6%E6%9E%84.png?raw=true"></p>
-<ul>
-<li><p>Thrift Server：提供了一种让用户可以使用多种不同的语言来操作Hive</p>
-<!-- Thrift 是 Facebook 开发的一个软件框架，可以用来进行可扩展且跨语言的服务的开发， Hive 集成了该服务，能让不同的编程语言调用 Hive 的接口 -->
-</li>
-<li><p>Compiler（编译解释器）：将HiveSQL转换为抽象语法树（AST），并将语法树编译为逻辑执行计划</p>
-</li>
-<li><p>Optimizer（优化器） ： 对逻辑执行计划进行优化 </p>
-</li>
-<li><p> Executor（执行器）：调用<strong>底层的运行框架</strong>执行逻辑执行计划 </p>
-</li>
-</ul>
+<h1 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h1><hr>
+<h1 id="容错及HA"><a href="#容错及HA" class="headerlink" title="容错及HA"></a>容错及HA</h1><hr>
+<h1 id="监控管理"><a href="#监控管理" class="headerlink" title="监控管理"></a>监控管理</h1><hr>
 ]]></content>
       <categories>
         <category>BigData</category>
-        <category>Hive</category>
+        <category>Spark</category>
       </categories>
       <tags>
-        <tag>Hive</tag>
+        <tag>Spark</tag>
       </tags>
   </entry>
   <entry>
@@ -986,6 +951,41 @@
       </categories>
       <tags>
         <tag>Spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初识Hive</title>
+    <url>/2020/06/13/%E5%88%9D%E8%AF%86Hive/</url>
+    <content><![CDATA[<h1 id="什么是Hive？"><a href="#什么是Hive？" class="headerlink" title="什么是Hive？"></a>什么是Hive？</h1><ol>
+<li>由Facebook实现并开源、基于Hadoop的<strong>数据仓库的工具</strong></li>
+<li>提供HQL（Hive SQL）查询功能</li>
+<li>Hive本质上是将SQL<strong>翻译</strong>转换成MapReduce任务执行</li>
+</ol>
+<a id="more"></a>
+
+<h1 id="为什么使用Hive（MapReduce、Spark）？"><a href="#为什么使用Hive（MapReduce、Spark）？" class="headerlink" title="为什么使用Hive（MapReduce、Spark）？"></a>为什么使用Hive（MapReduce、Spark）？</h1><ol>
+<li>MR在实现复杂逻辑查询的时候，成本高、难度大。</li>
+<li>Spark对集群资源更高（基于内存）</li>
+</ol>
+<h1 id="Hive内部架构"><a href="#Hive内部架构" class="headerlink" title="Hive内部架构"></a>Hive内部架构</h1><p><img src="https://github.com/CharlieTao/CharlieTao.github.sources/blob/master/BigData/Pictures/Hive/Hive%E5%86%85%E9%83%A8%E6%9E%B6%E6%9E%84.png?raw=true"></p>
+<ul>
+<li><p>Thrift Server：提供了一种让用户可以使用多种不同的语言来操作Hive</p>
+<!-- Thrift 是 Facebook 开发的一个软件框架，可以用来进行可扩展且跨语言的服务的开发， Hive 集成了该服务，能让不同的编程语言调用 Hive 的接口 -->
+</li>
+<li><p>Compiler（编译解释器）：将HiveSQL转换为抽象语法树（AST），并将语法树编译为逻辑执行计划</p>
+</li>
+<li><p>Optimizer（优化器） ： 对逻辑执行计划进行优化 </p>
+</li>
+<li><p> Executor（执行器）：调用<strong>底层的运行框架</strong>执行逻辑执行计划 </p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>BigData</category>
+        <category>Hive</category>
+      </categories>
+      <tags>
+        <tag>Hive</tag>
       </tags>
   </entry>
   <entry>
